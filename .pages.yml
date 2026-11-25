@@ -16,6 +16,7 @@ content:
       - { name: heading, label: Big heading, type: string, description: "e.g. I’m Mai" }
       - { name: photo, label: Photo (optional), type: image, description: "Doesn’t have to be your face: a coffee, a bookshelf, the sky" }
       - { name: caption, label: Photo caption, type: string }
+      - { name: credit, label: Photo credit, type: string, description: "If the photo isn’t yours, e.g. Photo by Name on Unsplash. The About photo never gets your watermark." }
       - { name: reading, label: Currently reading, type: string }
       - { name: drinking, label: Currently drinking, type: string }
       - { name: watching, label: Currently watching, type: string }

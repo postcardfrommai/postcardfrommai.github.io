@@ -61,10 +61,14 @@ def public_name(p):
     return "media/" + hashlib.sha256(p.encode()).hexdigest()[:12] + ext
 
 
-def watermark(src, dst):
+def watermark(src, dst, mark=True):
     img = ImageOps.exif_transpose(Image.open(src)).convert("RGB")  # upright, metadata dropped
     img.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
     w, h = img.size
+    if not mark:  # still upright, resized and stripped of hidden data, just no watermark
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        img.save(dst, "JPEG" if dst.suffix.lower() in (".jpg", ".jpeg") else dst.suffix.lstrip(".").upper().replace("JPG", "JPEG"), **({"quality": 82, "optimize": True, "progressive": True} if dst.suffix.lower() in (".jpg", ".jpeg") else {}))
+        return
     size = max(16, int(min(w, h) * 0.035))
     font = ImageFont.truetype(str(FONT), size)
     box = ImageDraw.Draw(img).textbbox((0, 0), MARK, font=font)
@@ -123,7 +127,7 @@ def main():
                         e.pop(f)
             entries.append(e)
 
-    about = {}
+    about, unmarked = {}, set()
     about_file = ROOT / "content" / "about.md"
     if about_file.exists():
         meta, body = read_entry(about_file)
@@ -135,6 +139,7 @@ def main():
         if p:
             about["photo"] = public_name(p)
             used.add(p)
+            unmarked.add(p)  # the About photo is often someone else's: never stamp it as Mai's
         else:
             about.pop("photo", None)
 
@@ -142,7 +147,7 @@ def main():
         src = ROOT / p
         if src.exists():
             try:
-                watermark(src, OUT / public_name(p))
+                watermark(src, OUT / public_name(p), mark=p not in unmarked)
             except Exception as err:  # a broken photo should not stop the whole site
                 print(f"Skipped {p}: {err}", file=sys.stderr)
         else:

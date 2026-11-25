@@ -269,7 +269,7 @@ function aboutPage() {
   const now = [['Reading', a.reading], ['Drinking', a.drinking], ['Watching', a.watching], ['Listening to', a.listening]].filter(f => f[1]);
   const sections = [['books', 'Books', 'what I read, with stars'], ['coffee', 'Coffee', 'cafés, sent as postcards'], ['watched', 'Watched', 'films and series, kept as tickets'], ['photos', 'Photos', 'little things I stopped to look at'], ['days', 'Days', 'small notes from ordinary days']];
   return `<section style="display:flex;flex-wrap:wrap;gap:48px;align-items:center;padding:56px 0 40px">
-  ${src(a.photo) ? `<div class="polaroid" style="flex:0 1 300px"><div class="pic" style="aspect-ratio:4/5">${pic(a.photo, 'A photo from Mai')}</div><div class="hand">${esc(a.caption || 'hi, it’s me')}</div></div>` : ''}
+  ${src(a.photo) ? `<div class="polaroid" style="flex:0 1 300px"><div class="pic" style="aspect-ratio:4/5">${pic(a.photo, 'A photo from Mai')}</div><div class="hand">${esc(a.caption || 'hi, it’s me')}</div>${a.credit ? `<div style="position:absolute;left:18px;right:18px;bottom:-26px;font-size:12px;color:var(--soft)">${esc(a.credit)}</div>` : ''}</div>` : ''}
   <div style="flex:1 1 360px"><div class="hand" style="font-size:28px;color:var(--brown)">hello,</div><h1 style="font-size:clamp(44px,7vw,80px)">${esc(a.heading || 'I’m Mai')}</h1><div class="prose">${paras(a.text)}</div></div></section>
   ${now.length ? `<h2>Currently</h2><div class="strip" style="margin-top:0">${now.map(f => `<div><small class="eyebrow">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>` : ''}
   <h2 style="margin-top:40px">What you’ll find here</h2>
