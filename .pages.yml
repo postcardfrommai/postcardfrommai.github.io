@@ -1,0 +1,127 @@
+# Posting forms for Postcards from Mai (used by app.pagescms.org)
+media:
+  input: media
+  output: media
+  categories: [image]
+  extensions: [jpg, jpeg, png, webp]
+  rename: safe
+
+content:
+  - name: coffee
+    label: Coffee postcards
+    type: collection
+    path: content/coffee
+    format: yaml-frontmatter
+    view:
+      primary: title
+      fields: [title, date, rating]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Café name, type: string, required: true }
+      - { name: date, label: Date visited, type: date, required: true }
+      - { name: area, label: Neighbourhood, type: string, description: "Shows as “Greetings from …” on the photo" }
+      - { name: city, label: City, type: string }
+      - { name: rating, label: Score out of 10, type: number, required: true, options: { min: 0, max: 10, step: 0.5 } }
+      - { name: photo, label: Main photo, type: image }
+      - { name: ordered, label: What I ordered, type: string }
+      - { name: spent, label: What I spent, type: string }
+      - { name: with, label: Who or what I was with, type: string }
+      - name: scores
+        label: Little scores (1–5)
+        type: object
+        fields:
+          - { name: coffee, label: Coffee, type: number, options: { min: 1, max: 5 } }
+          - { name: vibe, label: Vibe, type: number, options: { min: 1, max: 5 } }
+          - { name: seating, label: Seating, type: number, options: { min: 1, max: 5 } }
+          - { name: reading, label: Good for reading, type: number, options: { min: 1, max: 5 } }
+          - { name: wifi, label: Wi-Fi, type: number, options: { min: 1, max: 5 } }
+      - { name: tags, label: Good for, type: string, list: true, description: "e.g. quiet mornings, good pastries" }
+      - { name: photos, label: More photos, type: image, options: { multiple: true } }
+      - { name: body, label: My note, type: text, description: "Written on the postcard in handwriting" }
+
+  - name: books
+    label: Books
+    type: collection
+    path: content/books
+    format: yaml-frontmatter
+    view:
+      primary: title
+      fields: [title, author, rating, date]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: author, label: Author, type: string }
+      - { name: date, label: Date posted, type: date, required: true }
+      - { name: rating, label: Stars (1–5), type: number, required: true, options: { min: 1, max: 5 } }
+      - { name: cover, label: Cover photo, type: image }
+      - { name: tagline, label: One-line feeling, type: string, description: "e.g. a book I couldn’t put down" }
+      - { name: genre, label: Genre, type: string }
+      - { name: started, label: Started, type: date }
+      - { name: finished, label: Finished, type: date }
+      - { name: pages, label: Pages, type: number }
+      - { name: format, label: Read as, type: select, options: { values: [Paperback, Hardcover, E-book, Audiobook] } }
+      - { name: summary, label: In short (no spoilers), type: text }
+      - { name: quote, label: Favourite line, type: text }
+      - { name: photos, label: Reading vibe photos, type: image, options: { multiple: true } }
+      - { name: body, label: What I thought, type: text, description: "Leave an empty line between paragraphs" }
+
+  - name: watched
+    label: Movies & series
+    type: collection
+    path: content/watched
+    format: yaml-frontmatter
+    view:
+      primary: title
+      fields: [title, kind, rating, date]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: kind, label: Film or series, type: select, required: true, options: { values: [film, series] } }
+      - { name: date, label: Date watched, type: date, required: true }
+      - { name: rating, label: Rating (1–5), type: number, required: true, options: { min: 1, max: 5 } }
+      - { name: poster, label: Poster or screenshot, type: image }
+      - { name: season, label: Season, type: string, description: "Series only, e.g. Season 1" }
+      - { name: progress, label: Progress, type: string, description: "e.g. Ep. 8 of 10" }
+      - { name: where, label: Where, type: string, description: "e.g. at home, cinema" }
+      - { name: verdict, label: Verdict, type: string, description: "e.g. would rewatch" }
+      - { name: likeIf, label: Watch it if you like, type: string }
+      - { name: snack, label: Snack of choice, type: string }
+      - { name: body, label: What I thought, type: text }
+
+  - name: photos
+    label: Photos
+    type: collection
+    path: content/photos
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      primary: caption
+      fields: [caption, date, time]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: photo, label: Photo, type: image, required: true }
+      - { name: caption, label: Handwritten caption, type: string, required: true, description: "e.g. the sky at 5:42pm" }
+      - { name: date, label: Date, type: date, required: true }
+      - { name: time, label: Time, type: string, pattern: { regex: "^([01][0-9]|2[0-3]):[0-5][0-9]$", message: "Use HH:MM, e.g. 17:42" } }
+      - { name: title, label: Title, type: string }
+      - { name: tags, label: Tags, type: string, list: true, description: "e.g. sky, food, little things" }
+      - { name: body, label: A line about it, type: text }
+
+  - name: days
+    label: Days
+    type: collection
+    path: content/days
+    format: yaml-frontmatter
+    view:
+      primary: title
+      fields: [title, date, mood]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true }
+      - { name: mood, label: Mood, type: string }
+      - { name: reading, label: Reading, type: string }
+      - { name: onRepeat, label: On repeat, type: string }
+      - { name: ate, label: Ate, type: string }
+      - { name: photos, label: Photos, type: image, options: { multiple: true } }
+      - { name: body, label: The day, type: text, description: "Leave an empty line between paragraphs" }

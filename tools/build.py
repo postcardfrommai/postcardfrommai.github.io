@@ -1,0 +1,127 @@
+"""Builds the public website for Postcards from Mai.
+
+Runs automatically on GitHub after every post (see .github/workflows/publish.yml):
+  1. Reads every entry in content/<type>/*.md
+  2. Writes them all into _site/entries.json for the page to show
+  3. Copies each photo into _site/media after removing its hidden data
+     (GPS location, phone model, time), resizing it for the web,
+     and adding the "© Postcards from Mai" watermark.
+"""
+import datetime as dt
+import json
+import re
+import shutil
+import sys
+from pathlib import Path
+
+import yaml
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
+
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "_site"
+FONT = ROOT / "tools" / "LiberationSerif-Italic.ttf"
+MARK = "© Postcards from Mai"
+MAX_SIDE = 1600
+
+TYPES = {"books": "book", "coffee": "coffee", "watched": "watched", "photos": "photo", "days": "day"}
+BODY = {"book": "review", "coffee": "note", "watched": "review", "photo": "note", "day": "text"}
+IMAGE_FIELDS = ("photo", "cover", "poster", "photos")
+SAFE = re.compile(r"^media/[A-Za-z0-9._-]+\.(jpe?g|png|webp)$", re.I)
+
+
+def read_entry(path):
+    text = path.read_text(encoding="utf-8")
+    meta, body = {}, text
+    m = re.match(r"^---\s*\n(.*?)\n---\s*\n?(.*)$", text, re.S)
+    if m:
+        meta = yaml.safe_load(m.group(1)) or {}
+        body = m.group(2)
+    return meta, body.strip()
+
+
+def plain(v):
+    if isinstance(v, (dt.date, dt.datetime)):
+        return v.strftime("%Y-%m-%d")
+    if isinstance(v, dict):
+        return {k: plain(x) for k, x in v.items() if x not in (None, "", [])}
+    if isinstance(v, list):
+        return [plain(x) for x in v if x not in (None, "")]
+    return v
+
+
+def media_path(p):
+    p = str(p or "").strip().lstrip("/")
+    return p if SAFE.match(p) else None
+
+
+def watermark(src, dst):
+    img = ImageOps.exif_transpose(Image.open(src)).convert("RGB")  # upright, metadata dropped
+    img.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
+    w, h = img.size
+    size = max(16, int(min(w, h) * 0.035))
+    font = ImageFont.truetype(str(FONT), size)
+    box = ImageDraw.Draw(img).textbbox((0, 0), MARK, font=font)
+    m = int(size * 0.9)
+    x, y = w - (box[2] - box[0]) - m, h - (box[3] - box[1]) - m - box[1]
+    shadow = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).text((x, y), MARK, font=font, fill=(0, 0, 0, 110))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(max(1, size // 10)))
+    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    ImageDraw.Draw(layer).text((x, y), MARK, font=font, fill=(255, 255, 255, 170))
+    out = Image.alpha_composite(Image.alpha_composite(img.convert("RGBA"), shadow), layer).convert("RGB")
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    fmt = "PNG" if dst.suffix.lower() == ".png" else "WEBP" if dst.suffix.lower() == ".webp" else "JPEG"
+    out.save(dst, fmt, **({"quality": 82, "optimize": True, "progressive": True} if fmt == "JPEG" else {}))
+
+
+def main():
+    if OUT.exists():
+        shutil.rmtree(OUT)
+    OUT.mkdir()
+    shutil.copy(ROOT / "site" / "index.html", OUT / "index.html")
+    (OUT / ".nojekyll").write_text("")
+
+    entries, used = [], set()
+    for folder, kind in TYPES.items():
+        for path in sorted((ROOT / "content" / folder).glob("*.md")):
+            meta, body = read_entry(path)
+            e = plain(meta)
+            if e.get("draft"):
+                continue
+            e["type"] = kind
+            e["id"] = re.sub(r"-+", "-", re.sub(r"[^a-z0-9-]", "-", f"{kind}-{path.stem}".lower())).strip("-")
+            if body:
+                e[BODY[kind]] = body
+            e.pop("body", None)
+            for f in IMAGE_FIELDS:
+                if f not in e:
+                    continue
+                if f == "photos":
+                    vals = e[f] if isinstance(e[f], list) else [e[f]]
+                    e[f] = [p for p in (media_path(v) for v in vals) if p]
+                    used.update(e[f])
+                else:
+                    p = media_path(e[f])
+                    if p:
+                        e[f] = p
+                        used.add(p)
+                    else:
+                        e.pop(f)
+            entries.append(e)
+
+    for p in sorted(used):
+        src = ROOT / p
+        if src.exists():
+            try:
+                watermark(src, OUT / p)
+            except Exception as err:  # a broken photo should not stop the whole site
+                print(f"Skipped {p}: {err}", file=sys.stderr)
+        else:
+            print(f"Missing photo {p}", file=sys.stderr)
+
+    (OUT / "entries.json").write_text(json.dumps({"entries": entries}, ensure_ascii=False, default=str), encoding="utf-8")
+    print(f"Built {len(entries)} entries and {len(used)} photos.")
+
+
+if __name__ == "__main__":
+    main()
