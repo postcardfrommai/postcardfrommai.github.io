@@ -123,6 +123,21 @@ def main():
                         e.pop(f)
             entries.append(e)
 
+    about = {}
+    about_file = ROOT / "content" / "about.md"
+    if about_file.exists():
+        meta, body = read_entry(about_file)
+        about = plain(meta)
+        if body:
+            about["text"] = body
+        about.pop("body", None)
+        p = media_path(about.get("photo"))
+        if p:
+            about["photo"] = public_name(p)
+            used.add(p)
+        else:
+            about.pop("photo", None)
+
     for p in sorted(used):
         src = ROOT / p
         if src.exists():
@@ -133,7 +148,7 @@ def main():
         else:
             print(f"Missing photo {p}", file=sys.stderr)
 
-    (OUT / "entries.json").write_text(json.dumps({"entries": entries}, ensure_ascii=False, default=str), encoding="utf-8")
+    (OUT / "entries.json").write_text(json.dumps({"entries": entries, "about": about}, ensure_ascii=False, default=str), encoding="utf-8")
     print(f"Built {len(entries)} entries and {len(used)} photos.")
 
 

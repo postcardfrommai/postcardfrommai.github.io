@@ -122,7 +122,7 @@ footer.bottom p{margin:0;max-width:420px;font-size:14px;color:var(--soft)}
 <header class="top">
 <a class="logo" href="#home">Postcards from Mai</a>
 <nav class="menu" aria-label="Sections">
-<a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#photos">Photos</a><a href="#days">Days</a>
+<a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#photos">Photos</a><a href="#days">Days</a><a href="#about">About</a>
 </nav>
 </header>
 <main id="view" aria-live="polite"><p class="muted" style="padding:80px 0;text-align:center">Opening the notebook…</p></main>
@@ -151,7 +151,7 @@ const empty = (line, sub) => `<div class="empty"><div class="hand">${esc(line)}<
 const tags = list => (Array.isArray(list) ? list : []).map(t => `<span class="tag">${esc(t)}</span>`).join('');
 const back = (href, label) => `<a class="back" href="#${href}">← ${esc(label)}</a>`;
 
-let all = [], rollTag = '';
+let all = [], about = {}, rollTag = '';
 const byDate = (a, b) => String(b.date || '').localeCompare(String(a.date || '')) || String(b.time || '').localeCompare(String(a.time || ''));
 const of = t => all.filter(e => e.type === t).sort(byDate);
 const link = e => `#e-${esc(e.id)}`;
@@ -261,6 +261,19 @@ function dayPage(e) {
   <div class="pager">${older ? `<a href="${link(older)}">← ${esc(wk(older.date))}</a>` : '<span></span>'}${newer ? `<a href="${link(newer)}">${esc(wk(newer.date))} →</a>` : '<span></span>'}</div></article>`;
 }
 
+function aboutPage() {
+  const a = about || {};
+  const now = [['Reading', a.reading], ['Drinking', a.drinking], ['Watching', a.watching], ['Listening to', a.listening]].filter(f => f[1]);
+  const sections = [['books', 'Books', 'what I read, with stars'], ['coffee', 'Coffee', 'cafés, sent as postcards'], ['watched', 'Watched', 'films and series, kept as tickets'], ['photos', 'Photos', 'little things I stopped to look at'], ['days', 'Days', 'small notes from ordinary days']];
+  return `<section style="display:flex;flex-wrap:wrap;gap:48px;align-items:center;padding:56px 0 40px">
+  ${src(a.photo) ? `<div class="polaroid" style="flex:0 1 300px"><div class="pic" style="aspect-ratio:4/5">${pic(a.photo, 'A photo from Mai')}</div><div class="hand">${esc(a.caption || 'hi, it’s me')}</div></div>` : ''}
+  <div style="flex:1 1 360px"><div class="hand" style="font-size:28px;color:var(--brown)">hello,</div><h1 style="font-size:clamp(44px,7vw,80px)">${esc(a.heading || 'I’m Mai')}</h1><div class="prose">${paras(a.text)}</div></div></section>
+  ${now.length ? `<h2>Currently</h2><div class="strip" style="margin-top:0">${now.map(f => `<div><small class="eyebrow">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>` : ''}
+  <h2 style="margin-top:40px">What you’ll find here</h2>
+  <div class="grid" style="gap:14px">${sections.map(x => `<a class="box" href="#${x[0]}"><div class="serif" style="font-size:28px;line-height:1.1">${x[1]}</div><div class="muted" style="font-size:15px;margin-top:4px">${x[2]}</div></a>`).join('')}</div>
+  <p class="hand" style="font-size:24px;color:var(--brown);text-align:center;margin:48px 0 0">a postcard a day keeps the burnout away</p>`;
+}
+
 /* ---------- routing ---------- */
 const navKey = {book: 'books', coffee: 'coffee', watched: 'watched', photo: 'photos', day: 'days'};
 function route() {
@@ -271,6 +284,7 @@ function route() {
     if (e) { active = navKey[e.type]; html = ({book: bookPage, coffee: coffeePage, watched: watchedPage, photo: photoPage, day: dayPage}[e.type] || home)(e); }
   } else if (['books', 'coffee', 'watched', 'days'].includes(h)) { active = h; html = section(h); }
   else if (h === 'photos') { active = h; html = photos(); }
+  else if (h === 'about') { active = h; html = aboutPage(); }
   view.innerHTML = html || home();
   document.querySelectorAll('nav.menu a').forEach(a => a.toggleAttribute('aria-current', a.getAttribute('href') === '#' + active));
 }
@@ -282,7 +296,7 @@ window.addEventListener('hashchange', () => { rollTag = ''; route(); window.scro
 
 fetch('entries.json', {cache: 'no-store'})
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
-  .then(d => { all = (Array.isArray(d.entries) ? d.entries : []).filter(e => e && typeof e === 'object' && /^[a-z0-9-]+$/.test(e.id || '')); route(); })
+  .then(d => { about = (d.about && typeof d.about === 'object') ? d.about : {}; all = (Array.isArray(d.entries) ? d.entries : []).filter(e => e && typeof e === 'object' && /^[a-z0-9-]+$/.test(e.id || '')); route(); })
   .catch(() => { view.innerHTML = empty('The notebook didn’t open.', 'Please refresh the page in a moment.'); });
 }
 </script>

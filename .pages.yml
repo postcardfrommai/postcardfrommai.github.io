@@ -7,6 +7,21 @@ media:
   rename: random
 
 content:
+  - name: about
+    label: About me
+    type: file
+    path: content/about.md
+    format: yaml-frontmatter
+    fields:
+      - { name: heading, label: Big heading, type: string, description: "e.g. I’m Mai" }
+      - { name: photo, label: Photo (optional), type: image, description: "Doesn’t have to be your face: a coffee, a bookshelf, the sky" }
+      - { name: caption, label: Photo caption, type: string }
+      - { name: reading, label: Currently reading, type: string }
+      - { name: drinking, label: Currently drinking, type: string }
+      - { name: watching, label: Currently watching, type: string }
+      - { name: listening, label: Currently listening to, type: string }
+      - { name: body, label: About me, type: text, description: "A few lines about you and this site. Leave an empty line between paragraphs. Skip your full name, address or workplace." }
+
   - name: coffee
     label: Coffee postcards
     type: collection
