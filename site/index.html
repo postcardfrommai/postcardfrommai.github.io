@@ -176,7 +176,7 @@ function home() {
     ? `<a class="feature" href="${link(top)}">${coverEl(top)}<div><div class="eyebrow">Book · Finished ${esc(day(top.finished || top.date))}</div><div class="serif" style="font-size:clamp(36px,5vw,48px);line-height:1;margin:10px 0 12px">${esc(top.title)}</div><div style="font-size:22px">${stars(top.rating)}</div><p style="margin:14px 0 0;color:#4A413A">${esc(short(top.review, 220))}</p></div></a>`
     : '';
   const rest = feature ? latest.slice(1, 10) : latest.slice(0, 9);
-  return `<section class="hero"><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp;<br><span class="it">small days</span></h1><p class="lead">What I read, where I sat, what I watched, what I ordered, and whatever else happened in between. Nothing deep — just keeping track.</p></section>
+  return `<section class="hero"><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp;<br><span class="it">small days</span></h1><p class="lead">A postcard a day keeps the burnout away.</p></section>
   <div class="chips"><a class="chip" href="#books">Books</a><a class="chip" href="#coffee">Coffee shops</a><a class="chip" href="#watched">Watched</a><a class="chip" href="#photos">Photos</a><a class="chip" href="#days">Days</a></div>
   ${latest.length ? feature + `<div class="grid">${rest.map(card).join('')}</div>` : empty('The first postcard is on its way.', 'Books, cafés, films and small days will show up here.')}
   ${potd ? potdBand(potd) : ''}`;
