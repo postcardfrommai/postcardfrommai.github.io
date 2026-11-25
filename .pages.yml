@@ -4,7 +4,7 @@ media:
   output: media
   categories: [image]
   extensions: [jpg, jpeg, png, webp]
-  rename: safe
+  rename: random
 
 content:
   - name: coffee

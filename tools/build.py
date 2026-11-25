@@ -8,6 +8,7 @@ Runs automatically on GitHub after every post (see .github/workflows/publish.yml
      and adding the "© Postcards from Mai" watermark.
 """
 import datetime as dt
+import hashlib
 import json
 import re
 import shutil
@@ -54,6 +55,12 @@ def media_path(p):
     return p if SAFE.match(p) else None
 
 
+def public_name(p):
+    """Neutral file name for the site, so phone names (which carry the date and time) never show."""
+    ext = Path(p).suffix.lower().replace(".jpeg", ".jpg")
+    return "media/" + hashlib.sha256(p.encode()).hexdigest()[:12] + ext
+
+
 def watermark(src, dst):
     img = ImageOps.exif_transpose(Image.open(src)).convert("RGB")  # upright, metadata dropped
     img.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
@@ -81,7 +88,7 @@ def main():
     shutil.copy(ROOT / "site" / "index.html", OUT / "index.html")
     (OUT / ".nojekyll").write_text("")
 
-    entries, used = [], set()
+    entries, used, ids = [], set(), set()
     for folder, kind in TYPES.items():
         for path in sorted((ROOT / "content" / folder).glob("*.md")):
             meta, body = read_entry(path)
@@ -89,7 +96,13 @@ def main():
             if e.get("draft"):
                 continue
             e["type"] = kind
-            e["id"] = re.sub(r"-+", "-", re.sub(r"[^a-z0-9-]", "-", f"{kind}-{path.stem}".lower())).strip("-")
+            # web address uses the title only, never the upload date in the file name
+            stem = re.sub(r"^\d{4}-\d{2}-\d{2}-?", "", path.stem) or "entry"
+            base = re.sub(r"-+", "-", re.sub(r"[^a-z0-9-]", "-", f"{kind}-{stem}".lower())).strip("-")
+            e["id"], n = base, 2
+            while e["id"] in ids:
+                e["id"], n = f"{base}-{n}", n + 1
+            ids.add(e["id"])
             if body:
                 e[BODY[kind]] = body
             e.pop("body", None)
@@ -98,12 +111,13 @@ def main():
                     continue
                 if f == "photos":
                     vals = e[f] if isinstance(e[f], list) else [e[f]]
-                    e[f] = [p for p in (media_path(v) for v in vals) if p]
-                    used.update(e[f])
+                    found = [p for p in (media_path(v) for v in vals) if p]
+                    used.update(found)
+                    e[f] = [public_name(p) for p in found]
                 else:
                     p = media_path(e[f])
                     if p:
-                        e[f] = p
+                        e[f] = public_name(p)
                         used.add(p)
                     else:
                         e.pop(f)
@@ -113,7 +127,7 @@ def main():
         src = ROOT / p
         if src.exists():
             try:
-                watermark(src, OUT / p)
+                watermark(src, OUT / public_name(p))
             except Exception as err:  # a broken photo should not stop the whole site
                 print(f"Skipped {p}: {err}", file=sys.stderr)
         else:
