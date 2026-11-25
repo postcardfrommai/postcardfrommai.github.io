@@ -116,6 +116,9 @@ footer.bottom p{margin:0;max-width:420px;font-size:14px;color:var(--soft)}
 @media(prefers-reduced-motion:no-preference){.grid>a{transition:transform .2s}.grid>a:hover{transform:translateY(-3px) rotate(0)}}
 @media(max-width:600px){.hero{padding:40px 0 28px}.bigcard,.polaroid{transform:none}.bigcard .back{padding:18px 4px 4px}.feature .cover{flex-basis:150px}}
 </style>
+<!-- View counts (GoatCounter): privacy-friendly, no cookies, no personal data -->
+<script>window.goatcounter = {no_onload: true};</script>
+<script data-goatcounter="https://postcardfrommai.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -288,15 +291,29 @@ function route() {
   view.innerHTML = html || home();
   document.querySelectorAll('nav.menu a').forEach(a => a.toggleAttribute('aria-current', a.getAttribute('href') === '#' + active));
 }
+function track() {
+  const h = location.hash.slice(1) || 'home';
+  const e = h.startsWith('e-') ? all.find(x => x.id === h.slice(2)) : null;
+  const names = {home: 'Home', books: 'Books', coffee: 'Coffee', watched: 'Watched', photos: 'Photos', days: 'Days', about: 'About'};
+  const title = e ? (e.title || e.caption || 'Entry') : (names[h] || 'Home');
+  document.title = title === 'Home' ? 'Postcards from Mai' : title + ' · Postcards from Mai';
+  let tries = 0;
+  const send = () => {
+    const gc = window.goatcounter;
+    if (gc && typeof gc.count === 'function') { try { gc.count({path: '/' + h, title}); } catch (err) {} }
+    else if (tries++ < 20) setTimeout(send, 500);
+  };
+  send();
+}
 view.addEventListener('click', ev => {
   const b = ev.target.closest('button[data-tag]');
   if (b) { rollTag = b.dataset.tag; route(); }
 });
-window.addEventListener('hashchange', () => { rollTag = ''; route(); window.scrollTo(0, 0); });
+window.addEventListener('hashchange', () => { rollTag = ''; route(); window.scrollTo(0, 0); track(); });
 
 fetch('entries.json', {cache: 'no-store'})
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
-  .then(d => { about = (d.about && typeof d.about === 'object') ? d.about : {}; all = (Array.isArray(d.entries) ? d.entries : []).filter(e => e && typeof e === 'object' && /^[a-z0-9-]+$/.test(e.id || '')); route(); })
+  .then(d => { about = (d.about && typeof d.about === 'object') ? d.about : {}; all = (Array.isArray(d.entries) ? d.entries : []).filter(e => e && typeof e === 'object' && /^[a-z0-9-]+$/.test(e.id || '')); route(); track(); })
   .catch(() => { view.innerHTML = empty('The notebook didn’t open.', 'Please refresh the page in a moment.'); });
 }
 </script>
