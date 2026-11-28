@@ -115,6 +115,13 @@ nav.menu a[aria-current]{text-decoration:underline;text-decoration-thickness:2px
 .ticket .main{flex:1;padding:20px 22px;min-width:0}
 .ticket .stub{flex:0 0 86px;border-left:2px dashed var(--choc);background:var(--peri2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .ticket .score{font:700 40px/1 Fraunces,serif}
+.playbox{display:flex;align-items:center;justify-content:center;gap:16px;margin:30px auto 0;max-width:640px}
+.playbox.on{display:block}
+.playbox iframe{display:block;width:100%;border:1.5px solid var(--choc);border-radius:14px;box-shadow:4px 4px 0 var(--choc);background:var(--cream)}
+.playbox iframe.yt{aspect-ratio:16/9;height:auto}
+.play{flex:none;width:64px;height:64px;border-radius:50%;border:1.5px solid var(--choc);background:var(--orange);box-shadow:3px 3px 0 var(--choc);cursor:pointer;display:grid;place-items:center}
+.play .tri{width:0;height:0;border-left:20px solid var(--choc);border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:5px}
+.play:hover{transform:translateY(-2px)}
 .tape{display:block;background:var(--lav);border:1.5px solid var(--choc);border-radius:16px;padding:14px 14px 12px;box-shadow:4px 4px 0 var(--choc)}
 .tape-label{background:var(--cream);border:1.5px solid var(--choc);border-radius:8px;padding:12px 14px}
 .reels{display:flex;justify-content:center;gap:clamp(40px,22%,72px);margin:14px 0 4px;position:relative}
@@ -358,7 +365,15 @@ const ticketCard = (e, i = 0) => `<a class="ticket ${i % 2 ? 'tilt-l' : 'tilt-r'
 const shotsOf = e => [e.photo, ...(Array.isArray(e.photos) ? e.photos : [])].filter(src);
 const frame = e => `<a class="frame" href="${link(e)}"><div class="pic">${pic(e.photo, e.caption || e.title || 'Photo')}${shotsOf(e).length > 1 ? `<span class="more">+${shotsOf(e).length - 1}</span>` : ''}</div><div class="meta"><span>${esc(day(e.date))}</span><span>${esc(e.time)}</span></div><div class="hand">${esc(e.caption)}</div></a>`;
 const KIND = {song: 'Song', album: 'Album', playlist: 'Playlist'};
-const musicCard = (e, i = 0) => `<a class="tape ${i % 2 ? 'tilt-r' : 'tilt-l'}" href="${link(e)}"><div class="tape-label"><div class="label">${esc(KIND[e.kind] || 'Music')} · ${esc(day(e.date))}</div><div class="card-title">${esc(e.title)}</div><div class="muted" style="font-size:15px">${esc(e.artist)}</div></div><div class="reels" aria-hidden="true"><span></span><span></span></div>${(e.bestFor || []).length ? `<div class="hand">best for ${esc((e.bestFor || []).slice(0, 2).join(' & '))}</div>` : (e.rating ? `<div style="text-align:center">${stars(e.rating)}</div>` : '')}</a>`;
+const player = url => {
+  if (typeof url !== 'string') return null;
+  let m = url.match(/^https:\/\/open\.spotify\.com\/(?:intl-[a-z-]+\/)?(track|album|playlist|episode)\/([A-Za-z0-9]{10,40})/);
+  if (m) return {name: 'Spotify', src: `https://open.spotify.com/embed/${m[1]}/${m[2]}?utm_source=generator`, h: m[1] === 'track' || m[1] === 'episode' ? 152 : 352};
+  m = url.match(/^https:\/\/(?:www\.|music\.|m\.)?youtube\.com\/watch\?(?:.*&)?v=([A-Za-z0-9_-]{11})/) || url.match(/^https:\/\/youtu\.be\/([A-Za-z0-9_-]{11})/);
+  if (m) return {name: 'YouTube', src: `https://www.youtube-nocookie.com/embed/${m[1]}?autoplay=1&rel=0`, h: 0};
+  return null;
+};
+const musicCard = (e, i = 0) => `<a class="tape ${i % 2 ? 'tilt-r' : 'tilt-l'}" href="${link(e)}"><div class="tape-label"><div class="label">${esc(KIND[e.kind] || 'Music')} · ${esc(day(e.date))}${player(e.listen) ? ' · ▶ preview' : ''}</div><div class="card-title">${esc(e.title)}</div><div class="muted" style="font-size:15px">${esc(e.artist)}</div></div><div class="reels" aria-hidden="true"><span></span><span></span></div>${(e.bestFor || []).length ? `<div class="hand">best for ${esc((e.bestFor || []).slice(0, 2).join(' & '))}</div>` : (e.rating ? `<div style="text-align:center">${stars(e.rating)}</div>` : '')}</a>`;
 const card = (e, i) => ({book: bookCard, coffee: coffeeCard, watched: ticketCard, music: musicCard, photo: frame}[e.type] || (() => ''))(e, i);
 
 const SECTIONS = [
@@ -476,9 +491,11 @@ function photoPage(e) {
 function musicPage(e) {
   const facts = [['Type', KIND[e.kind] || 'Music'], ['Posted', day(e.date)], ['Artist', e.artist]].filter(f => f[1]);
   const listen = typeof e.listen === 'string' && /^https:\/\/[^\s"<>]+$/.test(e.listen) ? e.listen : '';
+  const pl = player(listen);
   return band('paper', `${back('music', 'The mixtape')}<div style="text-align:center;padding:4px 0 30px"><div class="hand" style="font-size:28px">on repeat lately</div><h1>${esc(e.title)}</h1>${e.artist ? `<div style="font-size:20px">${esc(e.artist)}</div>` : ''}</div>
   <div class="tape bigtape"><div class="tape-label" style="text-align:center"><div class="label">${esc(KIND[e.kind] || 'Music')} · Side A</div><div class="display" style="font-size:clamp(28px,4vw,38px);line-height:1.05;margin:6px 0 2px">${esc(e.title)}</div><div class="hand" style="font-size:24px">${esc(e.artist)}</div></div><div class="reels" aria-hidden="true"><span></span><span></span></div>${e.rating ? `<div style="text-align:center;font-size:22px">${stars(e.rating)}</div>` : ''}</div>
-  ${listen ? `<div style="text-align:center;margin-top:34px"><a class="btn" href="${esc(listen)}" target="_blank" rel="noopener noreferrer">Listen to it →</a></div>` : ''}`)
+  ${pl ? `<div class="playbox" data-src="${esc(pl.src)}" data-h="${pl.h}" data-name="${esc(pl.name)}" data-title="${esc(e.title)}"><button class="play" data-play aria-label="Play a preview of ${esc(e.title)}"><span class="tri" aria-hidden="true"></span></button><div><div class="hand" style="font-size:26px;line-height:1.1">play a little preview</div><div class="muted" style="font-size:14px">plays through ${esc(pl.name)}</div></div></div>` : ''}
+  ${listen ? `<div style="text-align:center;margin-top:${pl ? 18 : 34}px"><a class="btn${pl ? ' soft' : ''}" href="${esc(listen)}" target="_blank" rel="noopener noreferrer">Listen to the full ${esc((KIND[e.kind] || 'song').toLowerCase())} →</a></div>` : ''}`)
   + band('', `<div class="cols" style="padding-top:0"><div class="wide prose"><h2>Why I love it</h2>${paras(e.why)}</div>
   <div style="display:flex;flex-direction:column;gap:16px">${(e.bestFor || []).length ? `<div class="box"><div class="label" style="margin-bottom:10px">Best for</div>${tags(e.bestFor)}</div>` : ''}<div class="strip" style="margin:0">${facts.map(f => `<div><small class="label">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div></div></div>
   ${(e.photos || []).length || src(e.photo) ? `<div class="two">${[e.photo, ...(e.photos || [])].filter(src).map(p => `<div class="pic">${pic(p, e.title)}</div>`).join('')}</div>` : ''}`);
@@ -549,6 +566,16 @@ function setupGallery() {
   update();
 }
 view.addEventListener('click', ev => {
+  const play = ev.target.closest('button[data-play]');
+  if (play) {
+    const box = play.closest('.playbox'), f = document.createElement('iframe');
+    f.src = box.dataset.src; f.title = `${box.dataset.name} player: ${box.dataset.title}`;
+    f.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'; f.loading = 'lazy';
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    if (Number(box.dataset.h)) f.style.height = box.dataset.h + 'px'; else f.className = 'yt';
+    box.replaceChildren(f); box.classList.add('on');
+    return;
+  }
   const b = ev.target.closest('button[data-tag]');
   if (b) { rollTag = b.dataset.tag; route(); }
 });

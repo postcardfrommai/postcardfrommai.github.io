@@ -120,7 +120,7 @@ content:
       - { name: date, label: Date posted, type: date, required: true }
       - { name: rating, label: Stars (1–5), type: number, options: { min: 1, max: 5 } }
       - { name: bestFor, label: Best for, type: string, list: true, description: "e.g. rainy mornings, studying, long drives" }
-      - { name: listen, label: Listen link, type: string, pattern: { regex: "^https://", message: "Paste a full link starting with https:// (Spotify, YouTube, Anghami…)" }, description: "Optional link so people can listen" }
+      - { name: listen, label: Listen link, type: string, pattern: { regex: "^https://", message: "Paste a full link starting with https:// (Spotify, YouTube, Anghami…)" }, description: "Optional. Spotify and YouTube links also get a play button for a short preview." }
       - { name: photo, label: Your own photo (optional), type: image, description: "e.g. your headphones or a record. Avoid album covers: they belong to the artist." }
       - { name: body, label: Why I love it, type: text }
 

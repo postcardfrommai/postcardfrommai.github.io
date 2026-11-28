@@ -50,6 +50,18 @@ def plain(v):
     return v
 
 
+def clock(v):
+    """Times typed as 19:30 come out of YAML as 1170 (minutes); turn any form back into HH:MM."""
+    if isinstance(v, bool) or v is None:
+        return ""
+    if isinstance(v, int):
+        return f"{(v // 60) % 24:02d}:{v % 60:02d}" if 0 <= v < 24 * 60 else ""
+    if isinstance(v, (dt.time, dt.datetime)):
+        return v.strftime("%H:%M")
+    m = re.match(r"^\s*(\d{1,2})[:.](\d{2})", str(v))
+    return f"{int(m.group(1)):02d}:{m.group(2)}" if m else str(v)[:5]
+
+
 def media_path(p):
     p = str(p or "").strip().lstrip("/")
     return p if SAFE.match(p) else None
@@ -102,6 +114,10 @@ def main():
             if e.get("draft"):
                 continue
             e["type"] = kind
+            if "time" in meta:
+                e["time"] = clock(meta["time"])
+                if not e["time"]:
+                    e.pop("time")
             # web address uses the title only, never the upload date in the file name
             stem = re.sub(r"^\d{4}-\d{2}-\d{2}-?", "", path.stem) or "entry"
             base = re.sub(r"-+", "-", re.sub(r"[^a-z0-9-]", "-", f"{kind}-{stem}".lower())).strip("-")
