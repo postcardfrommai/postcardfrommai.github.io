@@ -4,155 +4,309 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Postcards from Mai</title>
+<meta name="description" content="A little online journal: books, coffee shops, films and series, photos and small days. A postcard a day keeps the burnout away.">
+<meta name="theme-color" content="#FFF6D5">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Postcards from Mai">
+<meta property="og:title" content="Postcards from Mai">
+<meta property="og:description" content="Books, coffee & small days. A postcard a day keeps the burnout away.">
+<meta property="og:url" content="https://postcardfrommai.github.io/">
+<meta property="og:image" content="https://postcardfrommai.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Caveat:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..800,0..100,0..1&family=Caveat:wght@500;600&display=swap">
 <style>
-/* VOICE: cozy, unhurried, a little handwritten — a public notebook, not a blog
-   IDEA: paper keepsakes — postcards for cafés, ticket stubs for films, polaroids and negatives for photos
-   PICTURE: the keepsakes themselves, tilted slightly, on warm paper
-   COLOUR and TYPE: cream paper, espresso ink, wine for tickets; Instrument Serif + Inter + Caveat notes (Mai's chosen look)
-   LAYOUT: one 1080px column, cards in auto-fit grids, everything stacks on a phone */
-:root{color-scheme:light;--paper:#F4EFE6;--card:#FBF8F2;--sand:#EAE1D3;--blush:#E8D5CC;--line:#CFC5B6;--ink:#2A2420;--soft:#5C5249;--brown:#7A4E3A;--wine:#7E3434;--wine2:#733030;--gold:#E2B86A}
+/* VOICE: cozy, playful, a little handwritten: a sketchbook journal, never a corporate blog
+   IDEA: a café table sketched in ink on grid paper; each section is a keepsake (postcard, ticket, polaroid, notebook)
+   PICTURE: hand-drawn line doodles in chocolate ink: a table scene in the hero, menu-card drawings, doodles in the margins
+   COLOUR and TYPE: butter paper + periwinkle grid, chocolate ink, lavender, periwinkle and orange bands; Fraunces (soft, wonky) + Caveat notes
+   LAYOUT: full-width bands that alternate colour; content up to 1120px; everything stacks into one column on a phone */
+:root{color-scheme:light;--butter:#FFF6D5;--cream:#FFFBEC;--grid:#D3D9F4;--choc:#4B2A1E;--soft:#6E4A3B;--lav:#DCCBF2;--peri:#A4B2E8;--peri2:#8E9EDF;--orange:#F38B55;--line:#4B2A1E}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+html{scroll-padding-top:24px;overflow-x:clip}
+body{margin:0;background:var(--butter);color:var(--choc);font:17px/1.6 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 50;overflow-x:clip}
 a{color:inherit;text-decoration:none}
-a:focus-visible,button:focus-visible{outline:2px solid var(--brown);outline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2.5px solid var(--choc);outline-offset:3px;border-radius:6px}
 img{display:block;width:100%;height:100%;object-fit:cover}
-.wrap{max-width:1080px;margin:0 auto;padding:28px max(4vw,16px) 64px}
-.serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400}
+.band{padding:clamp(40px,6vw,84px) max(5vw,18px);position:relative}
+.in{max-width:1120px;margin:0 auto;position:relative}
+.paper{background-color:var(--butter);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:30px 30px;background-position:-1px -1px}
+.b-peri{background:var(--peri)}.b-lav{background:var(--lav)}.b-choc{background:var(--choc);color:var(--butter)}.b-orange{background:var(--orange)}
+.display,h1,h2{font-family:Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+h1{margin:6px 0 14px;font-size:clamp(46px,8vw,92px);line-height:.98}
+h2{margin:0 0 14px;font-size:clamp(32px,4.6vw,48px);line-height:1.04}
 .it{font-style:italic}
-.hand{font-family:Caveat,cursive}
-.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);font-weight:600}
+.hand{font-family:Caveat,cursive;font-weight:600}
+.label{font-family:Fraunces,serif;font-weight:650;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase}
 .muted{color:var(--soft)}
-header.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding-bottom:18px;border-bottom:1px solid var(--line)}
-.logo{font:italic 30px/1 'Instrument Serif',serif}
-nav.menu{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:14px}
-nav.menu a{padding:10px 0}
-nav.menu a[aria-current]{color:var(--brown);text-decoration:underline;text-underline-offset:6px}
-.hero{text-align:center;padding:64px 0 40px}
-.hero .hand{font-size:26px;color:var(--brown)}
-h1{margin:6px 0 14px;font:400 clamp(48px,9vw,100px)/.95 'Instrument Serif',serif;letter-spacing:-.02em;text-wrap:balance}
-h2{margin:0 0 14px;font:400 34px/1.1 'Instrument Serif',serif}
-.lead{margin:0 auto;max-width:520px;color:var(--soft)}
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding-bottom:36px}
-.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 14px Inter,sans-serif;cursor:pointer}
-.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.tag{display:inline-block;padding:7px 14px;border-radius:999px;background:var(--blush);font-size:13px;margin:0 6px 6px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:28px;align-items:start}
-.back{display:inline-block;margin:24px 0 4px;font-size:14px;color:var(--soft);padding:8px 0}
-.stars{color:var(--brown);letter-spacing:3px}.off{color:var(--line)}
-.empty{padding:56px 24px;text-align:center;border:1.5px dashed var(--line);border-radius:20px;color:var(--soft)}
-.empty .hand{font-size:28px;color:var(--brown)}
-/* book */
-.cover{background:var(--tone,#A9B59A);border-radius:4px;box-shadow:0 18px 30px rgba(42,36,32,.18);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;aspect-ratio:2/3}
+.doodle{color:var(--choc);display:block}
+/* header */
+header.top{background:var(--butter);border-bottom:1.5px solid var(--choc);padding:14px max(5vw,18px)}
+header.top .in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 26px}
+.logo{display:flex;align-items:center;gap:8px;font:italic 650 28px/1 Fraunces,serif;font-variation-settings:"SOFT" 100,"WONK" 1}
+.logo svg{width:34px;height:34px}
+nav.menu{display:flex;flex-wrap:wrap;gap:0 20px}
+nav.menu a{padding:10px 0;font-size:12.5px;font-weight:650;letter-spacing:.14em;text-transform:uppercase}
+nav.menu a[aria-current]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:7px}
+/* buttons */
+.btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;border:1.5px solid var(--choc);background:var(--choc);color:var(--butter);font:650 13px Fraunces,serif;letter-spacing:.1em;text-transform:uppercase}
+.btn.soft{background:var(--lav);color:var(--choc)}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--choc);background:var(--cream);color:var(--choc);font:600 14px Fraunces,serif;cursor:pointer}
+.chip.on{background:var(--choc);color:var(--butter)}
+.tag{display:inline-block;padding:6px 14px;border-radius:999px;border:1.5px solid var(--choc);background:var(--lav);font-size:14px;margin:0 6px 8px 0}
+.stars{letter-spacing:3px}.off{opacity:.25}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hero .hand{font-size:clamp(24px,2.6vw,30px)}
+.lead{font-size:clamp(18px,1.8vw,21px);margin:0 0 26px;max-width:30ch}
+.scene{width:100%;height:auto;--scene-bg:var(--butter)}
+/* ribbon */
+.ribbon{background:var(--lav);border-block:1.5px solid var(--choc);transform:rotate(-1.6deg);margin:-14px -2vw 0;overflow:hidden;position:relative;z-index:2}
+.ribbon .track{display:flex;width:max-content;gap:28px;padding:12px 0;font:italic 600 19px Fraunces,serif;font-variation-settings:"SOFT" 100,"WONK" 1;white-space:nowrap}
+.ribbon .track span{display:inline-flex;align-items:center;gap:28px}
+.ribbon svg{width:18px;height:18px}
+@media(prefers-reduced-motion:no-preference){.ribbon .track{animation:roll 38s linear infinite}@keyframes roll{to{transform:translateX(-50%)}}}
+/* menu cards */
+.menu-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:28px}
+.mcard{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;background:var(--cream);border:1.5px solid var(--choc);border-radius:22px;padding:22px 16px 20px;box-shadow:4px 4px 0 var(--choc);transition:transform .2s}
+.mcard svg{width:96px;height:96px}
+.mcard .count{font-size:14px;color:var(--soft)}
+.mcard:hover{transform:translateY(-3px)}
+.side{position:absolute;pointer-events:none;color:var(--choc);opacity:.9}
+@media(max-width:1400px){.side{display:none}}
+/* section heads */
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 24px;margin-bottom:28px}
+.head p{margin:0;max-width:42ch}
+.pagehead{display:flex;flex-wrap:wrap;align-items:center;gap:20px 36px}
+.pagehead svg{width:clamp(110px,14vw,150px);height:auto}
+.pagehead h1{margin:0}
+/* grids & cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:30px;align-items:start}
+.empty{padding:52px 24px;text-align:center;border:2px dashed var(--choc);border-radius:24px;background:var(--cream)}
+.empty .hand{font-size:30px}
+.empty svg{width:90px;height:90px;margin:0 auto 6px}
+.sticker{border:1.5px solid var(--choc);border-radius:20px;box-shadow:4px 4px 0 var(--choc)}
+.card-title{margin:6px 0 4px;font:600 27px/1.06 Fraunces,serif;font-variation-settings:"SOFT" 100,"WONK" 1}
+.bookcard{display:flex;gap:18px;background:var(--cream);padding:20px}
+.cover{background:var(--tone,#A4B2E8);border:1.5px solid var(--choc);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;aspect-ratio:2/3}
 .cover:has(img){padding:0}
-.cover span{font:400 22px/1.05 'Instrument Serif',serif}
-.bookcard{display:flex;gap:18px;background:var(--card);border:1px solid #E2D9CA;border-radius:16px;padding:22px}
-.bookcard .cover{flex:0 0 96px;padding:10px}.bookcard .cover span{font-size:14px}
-.card-title{margin:8px 0 6px;font:400 28px/1.05 'Instrument Serif',serif}
-.feature{display:flex;flex-wrap:wrap;gap:40px;align-items:center;padding:clamp(24px,4vw,40px);background:var(--sand);border-radius:20px;margin-bottom:32px}
-.feature .cover{flex:0 0 190px}
+.cover span{font:600 15px/1.08 Fraunces,serif}
+.bookcard .cover{flex:0 0 96px}
+.feature{display:flex;flex-wrap:wrap;gap:36px;align-items:center;padding:clamp(22px,4vw,38px);background:var(--cream);margin-bottom:30px}
+.feature .cover{flex:0 0 180px}.feature .cover span{font-size:24px}
 .feature>div:last-child{flex:1 1 320px}
-/* postcard */
-.postcard{display:block;background:var(--card);padding:12px;border-radius:4px;box-shadow:0 16px 28px rgba(42,36,32,.14)}
-.postcard .front{position:relative;aspect-ratio:4/3;background:#C9B29B;overflow:hidden}
-.postcard .greet{position:absolute;left:12px;right:80px;bottom:10px;font:italic 24px/1.05 'Instrument Serif',serif;color:#FBF8F2;text-shadow:0 1px 8px rgba(0,0,0,.35)}
-.stamp{position:absolute;top:10px;right:10px;padding:4px;background:var(--card);border:2px dashed #B7A893}
-.stamp div{background:var(--brown);color:#FBF8F2;width:56px;height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:400 24px/1 'Instrument Serif',serif}
-.stamp small{font:500 9px Inter,sans-serif;letter-spacing:.1em;margin-top:4px}
-.postcard p{margin:8px 0 0;font:500 22px/1.25 Caveat,cursive}
-.bigcard{display:flex;flex-wrap:wrap;background:var(--card);padding:18px;border-radius:6px;box-shadow:0 2px 0 #E2D9CA,0 30px 50px rgba(42,36,32,.16);transform:rotate(-.6deg)}
-.bigcard .front{flex:1 1 360px;aspect-ratio:4/3;position:relative;background:#C9B29B;overflow:hidden;border-radius:3px}
-.bigcard .back{flex:1 1 360px;margin:0;padding:18px 6px 6px 26px;display:flex;flex-direction:column;gap:16px;color:var(--ink)}
-.bigcard .stamp{position:static}.bigcard .stamp div{width:96px;height:110px;font-size:44px}
-.postmark{width:116px;height:116px;border:2px solid var(--brown);border-radius:50%;opacity:.8;transform:rotate(-12deg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--brown)}
-.postmark b{font:600 10px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase}
-.postmark span{font:400 22px/1.1 'Instrument Serif',serif}
-.note{margin:0;font:500 27px/1.3 Caveat,cursive}
-.lines div{border-bottom:1px solid var(--line);padding:4px 0;font:500 23px Caveat,cursive}
-.lines b{font:600 11px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);margin-right:10px}
-.box{background:var(--card);border:1px solid #E2D9CA;border-radius:16px;padding:22px}
-.row{display:flex;justify-content:space-between;gap:12px;font-size:15px;padding:5px 0}
-.cols{display:flex;flex-wrap:wrap;gap:40px;padding:48px 0}
-.cols>*{flex:1 1 300px}.cols>.wide{flex:2 1 440px}
-.prose p{margin:0 0 14px;font-size:17px;line-height:1.75;white-space:pre-line}
-/* ticket */
-.ticket{display:flex;background:var(--wine);color:#F4EFE6;border-radius:12px;overflow:hidden;box-shadow:0 16px 28px rgba(42,36,32,.14)}
-.ticket .main{flex:1;padding:22px;min-width:0}
-.ticket .stub{flex:0 0 84px;border-left:2px dashed #B98585;background:var(--wine2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.ticket .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--blush)}
-.ticket .score{font:400 40px/1 'Instrument Serif',serif}
-.bigticket{flex-wrap:wrap}.bigticket .main{flex:3 1 420px;padding:32px;display:flex;flex-wrap:wrap;gap:28px}
-.bigticket .stub{flex:1 1 200px;padding:32px 20px;gap:8px}.bigticket .score{font-size:72px}
-.poster{flex:0 0 150px;aspect-ratio:2/3;background:#5E2626;border:1px solid #A76A6A;border-radius:4px;overflow:hidden}
-.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px}
-.facts small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blush)}
+.postcard{display:block;background:var(--cream);padding:12px;border:1.5px solid var(--choc);border-radius:6px;box-shadow:4px 4px 0 var(--choc)}
+.postcard .front{position:relative;aspect-ratio:4/3;background:var(--peri);overflow:hidden;border-radius:2px}
+.greet{position:absolute;left:12px;right:84px;bottom:10px;font:italic 600 24px/1.05 Fraunces,serif;font-variation-settings:"SOFT" 100,"WONK" 1;color:#FFFBEC;text-shadow:0 1px 10px rgba(40,20,10,.5)}
+.stamp{position:absolute;top:10px;right:10px;padding:4px;background:var(--cream);border:2px dashed var(--choc)}
+.stamp div{background:var(--orange);color:var(--choc);width:58px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 25px/1 Fraunces,serif}
+.stamp small{font:650 9px Fraunces,serif;letter-spacing:.1em;margin-top:4px}
+.postcard p{margin:8px 0 0;font:600 23px/1.2 Caveat,cursive}
+.ticket{display:flex;background:var(--peri);border:1.5px solid var(--choc);border-radius:14px;overflow:hidden;box-shadow:4px 4px 0 var(--choc)}
+.ticket .main{flex:1;padding:20px 22px;min-width:0}
+.ticket .stub{flex:0 0 86px;border-left:2px dashed var(--choc);background:var(--peri2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ticket .score{font:700 40px/1 Fraunces,serif}
+.daycard{display:flex;flex-direction:column;justify-content:space-between;gap:16px;background:var(--lav);padding:24px;min-height:240px}
+.tilt-l{transform:rotate(-1deg)}.tilt-r{transform:rotate(.9deg)}
+@media(prefers-reduced-motion:no-preference){.grid>a{transition:transform .2s}.grid>a:hover{transform:translateY(-3px) rotate(0)}}
 /* photos */
-.polaroid{background:var(--card);padding:14px 14px 58px;box-shadow:0 30px 50px rgba(42,36,32,.16);transform:rotate(-1deg);position:relative}
-.polaroid .pic{aspect-ratio:4/3;background:#A9B7C4;overflow:hidden}
-.polaroid .hand{position:absolute;left:18px;right:18px;bottom:12px;font-size:26px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.film{background:#2A2420;border-radius:6px;padding:12px 14px;margin-top:20px}
-.holes{height:10px;background:repeating-linear-gradient(90deg,#F4EFE6 0 14px,transparent 14px 28px);opacity:.85;border-radius:2px;margin:2px 0 12px}
+.polaroid{display:block;background:var(--cream);padding:14px 14px 60px;border:1.5px solid var(--choc);box-shadow:5px 5px 0 var(--choc);transform:rotate(-1.4deg);position:relative;color:var(--choc)}
+.polaroid .pic{aspect-ratio:4/3;background:var(--peri);overflow:hidden}
+.polaroid .hand{position:absolute;left:18px;right:18px;bottom:12px;font-size:27px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.potd{display:flex;flex-wrap:wrap;gap:40px;align-items:center}
+.potd .polaroid{flex:0 1 340px}
+.potd>div:last-child{flex:1 1 280px}
+.film{background:#2E1A12;border-radius:8px;padding:12px 14px;margin-top:22px;border:1.5px solid var(--choc)}
+.holes{height:10px;background:repeating-linear-gradient(90deg,#FFF6D5 0 14px,transparent 14px 28px);opacity:.9;border-radius:2px;margin:2px 0 12px}
 .holes.b{margin:12px 0 2px}
 .frames{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:10px}
-.frame .pic{aspect-ratio:1;background:#D8C7B2;overflow:hidden}
-.frame .meta{display:flex;justify-content:space-between;padding:7px 2px 0;font-size:11px;letter-spacing:.1em;color:var(--gold)}
-.frame .hand{color:#F4EFE6;font-size:19px;padding:0 2px 4px;line-height:1.2}
-.potd{display:flex;flex-wrap:wrap;gap:36px;align-items:center;padding:clamp(22px,4vw,36px);background:#2A2420;color:#F4EFE6;border-radius:20px;margin-top:56px}
-.potd .polaroid{flex:0 1 320px;color:var(--ink)}
-.potd>div:last-child{flex:1 1 280px}
-/* day */
-.daycard{display:flex;flex-direction:column;justify-content:space-between;gap:18px;background:var(--blush);border-radius:16px;padding:26px;min-height:260px}
-.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:32px 0}
-.strip div{background:var(--card);padding:14px 18px}
-.strip small{display:block}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin-top:24px}
-.two .pic{aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#D8C7B2}
-.pager{display:flex;justify-content:space-between;gap:16px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:14px}
+.frame .pic{aspect-ratio:1;background:#5A3A2C;overflow:hidden}
+.frame .meta{display:flex;justify-content:space-between;padding:7px 2px 0;font-size:12px;letter-spacing:.08em;color:#F9D98B}
+.frame .hand{color:#FFF6D5;font-size:20px;padding:0 2px 4px;line-height:1.2}
+/* detail bits */
+.back{display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;padding:10px 0;font-size:15px;color:var(--soft)}
+.bigcard{display:flex;flex-wrap:wrap;background:var(--cream);padding:18px;border:1.5px solid var(--choc);border-radius:8px;box-shadow:6px 6px 0 var(--choc);transform:rotate(-.5deg)}
+.bigcard .front{flex:1 1 360px;aspect-ratio:4/3;position:relative;background:var(--peri);overflow:hidden;border-radius:3px}
+.bigcard .backside{flex:1 1 360px;padding:18px 6px 6px 26px;display:flex;flex-direction:column;gap:16px}
+.bigcard .stamp{position:static}.bigcard .stamp div{width:98px;height:112px;font-size:44px}
+.postmark{width:118px;height:118px;border:2px solid var(--choc);border-radius:50%;transform:rotate(-12deg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.postmark b{font:700 10px Fraunces,serif;letter-spacing:.16em;text-transform:uppercase}
+.postmark span{font:600 22px/1.1 Fraunces,serif}
+.note{margin:0;font:600 28px/1.25 Caveat,cursive}
+.lines div{border-bottom:1.5px solid rgba(75,42,30,.35);padding:4px 0;font:600 24px Caveat,cursive}
+.lines b{font:700 11px Fraunces,serif;letter-spacing:.12em;text-transform:uppercase;margin-right:10px}
+.box{background:var(--cream);border:1.5px solid var(--choc);border-radius:20px;padding:22px;box-shadow:4px 4px 0 var(--choc)}
+.row{display:flex;justify-content:space-between;gap:12px;font-size:16px;padding:5px 0}
+.cols{display:flex;flex-wrap:wrap;gap:40px;padding-top:48px;align-items:flex-start}
+.cols>*{flex:1 1 300px}.cols>.wide{flex:2 1 440px}
+.prose p{margin:0 0 14px;font-size:18px;line-height:1.75;white-space:pre-line}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.5px;background:var(--choc);border:1.5px solid var(--choc);border-radius:16px;overflow:hidden;margin:32px 0}
+.strip div{background:var(--cream);padding:14px 18px}
+.strip small{display:block;margin-bottom:2px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin-top:24px}
+.two .pic{aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--peri);border:1.5px solid var(--choc)}
+.bigticket{flex-wrap:wrap;box-shadow:6px 6px 0 var(--choc)}
+.bigticket .main{flex:3 1 420px;padding:30px;display:flex;flex-wrap:wrap;gap:28px}
+.bigticket .stub{flex:1 1 200px;padding:30px 20px;gap:8px}.bigticket .score{font-size:72px}
+.poster{flex:0 0 150px;aspect-ratio:2/3;background:var(--peri2);border:1.5px solid var(--choc);border-radius:6px;overflow:hidden}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px}
+.facts small{display:block}
+.pager{display:flex;justify-content:space-between;gap:16px;margin-top:40px;padding-top:20px;border-top:1.5px solid var(--choc)}
 .pager a{padding:10px 0}
-footer.bottom{margin-top:72px;padding-top:28px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:baseline}
-footer.bottom p{margin:0;max-width:420px;font-size:14px;color:var(--soft)}
-.tilt-l{transform:rotate(-1deg)}.tilt-r{transform:rotate(.8deg)}
-@media(prefers-reduced-motion:no-preference){.grid>a{transition:transform .2s}.grid>a:hover{transform:translateY(-3px) rotate(0)}}
-@media(max-width:600px){.hero{padding:40px 0 28px}.bigcard,.polaroid{transform:none}.bigcard .back{padding:18px 4px 4px}.feature .cover{flex-basis:150px}}
+blockquote.quote{margin:0;padding:44px 32px;background:var(--lav);border:1.5px solid var(--choc);border-radius:24px;text-align:center;box-shadow:5px 5px 0 var(--choc)}
+/* footer */
+footer.bottom .in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px 40px;align-items:flex-start}
+footer.bottom nav{display:grid;grid-template-columns:repeat(2,auto);gap:4px 36px}
+footer.bottom nav a{padding:6px 0;font-size:13px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
+footer.bottom small{display:block;max-width:420px;font-size:14px;line-height:1.55}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.hero .scene-wrap{order:2}.hero .btns{order:3}}
+@media(max-width:600px){.mcard{padding:18px 10px 16px}.mcard svg{width:72px;height:72px}.bigcard,.polaroid,.tilt-l,.tilt-r{transform:none}.bigcard .backside{padding:18px 4px 4px}.feature .cover{flex-basis:140px}.ribbon .track{font-size:17px}}
 </style>
 <!-- View counts (GoatCounter): privacy-friendly, no cookies, no personal data -->
 <script>window.goatcounter = {no_onload: true};</script>
 <script data-goatcounter="https://postcardfrommai.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-<div class="wrap">
-<header class="top">
-<a class="logo" href="#home">Postcards from Mai</a>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<defs>
+<symbol id="d-cup" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="60" cy="95" rx="42" ry="9.5"/><path d="M36 93.5c6 3 40 3 48 0"/>
+<path d="M30 52c0 24 9 39 29 39s29-15 29-39"/><ellipse cx="59" cy="52" rx="29" ry="6.5"/>
+<path d="M53 51.5c-1.5-3.5 3.5-5 5.5-1.5c2-3.5 7-2 5.5 1.5c-1 2.5-5.5 4.5-5.5 4.5s-4.5-2-5.5-4.5z"/>
+<path d="M87.5 60c12-3 17 9 7 16c-3 2-6 3-9.5 3.5"/>
+<path d="M47 40c-6-5 5-9-.5-16s4-10 1-14M60 38c-6-6 6-10 0-18M73 40c-6-5 5-9-.5-15"/>
+<path d="M40 70c2 6 5 10 9 12" stroke-width="1.6"/></g></symbol>
+
+<symbol id="d-book" viewBox="0 0 140 110"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M70 26C56 17 32 17 14 22v62c18-5 42-5 56 4z"/><path d="M70 26c14-9 38-9 56-4v62c-18-5-42-5-56 4"/>
+<path d="M14 84v6c18-5 42-4 56 5c14-9 38-10 56-5v-6"/>
+<path d="M24 36c12-3 26-3 38 1M24 46c12-3 26-3 38 1M24 56c12-3 26-3 38 1M24 66c8-2 18-2 26 0M78 37c12-4 26-4 38-1M78 47c12-4 26-4 38-1M78 57c12-4 26-4 38-1M78 67c8-2 18-2 24-1" stroke-width="1.6"/>
+<path d="M98 22v20l5-4 5 4V23"/></g></symbol>
+
+<symbol id="d-books" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<rect x="16" y="84" width="88" height="17" rx="3"/><path d="M26 84v17M94 84v17" stroke-width="1.6"/>
+<path d="M24 67l70-5 1.4 17-70 5z"/><path d="M33 66.5l1.3 17M84 63l1.3 17" stroke-width="1.6"/>
+<path d="M20 49l64 4-1 17-64-4z"/><path d="M30 49.5l-1 17M72 52.5l-1 17" stroke-width="1.6"/>
+<path d="M44 49l2-14c2-8 14-10 16-2" stroke-width="1.8"/><path d="M62 33c4-6 13-4 13 3" stroke-width="1.8"/></g></symbol>
+
+<symbol id="d-ticket" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-10 60 60)">
+<path d="M12 38h96v14a8 8 0 0 0 0 16v14H12V68a8 8 0 0 0 0-16z"/>
+<path d="M84 40v40" stroke-dasharray="3 5"/>
+<path d="M24 50h44M24 60h32M24 70h40" stroke-width="1.6"/>
+<path d="M96 52l2 5 5 .5-4 3.5 1.3 5-4.3-2.8-4.3 2.8 1.3-5-4-3.5 5-.5z" stroke-width="1.6"/></g></symbol>
+
+<symbol id="d-camera" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<rect x="14" y="40" width="92" height="56" rx="11"/><path d="M40 40l6-11h28l6 11"/>
+<circle cx="60" cy="68" r="19"/><circle cx="60" cy="68" r="10.5"/><path d="M53 63a9 9 0 0 1 6-4" stroke-width="1.8"/>
+<rect x="85" y="47" width="12" height="7" rx="2"/><path d="M22 54h10M14 82h12M94 82h12" stroke-width="1.6"/></g></symbol>
+
+<symbol id="d-notebook" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M26 22h66a4 4 0 0 1 4 4v76a4 4 0 0 1-4 4H26a4 4 0 0 1-4-4V26a4 4 0 0 1 4-4z"/>
+<path d="M34 16v12M48 16v12M62 16v12M76 16v12"/>
+<path d="M32 44h46M32 54h52M32 64h40M32 74h48M32 84h30" stroke-width="1.6"/>
+<circle cx="80" cy="84" r="6"/><path d="M80 73v3M80 92v3M69 84h3M88 84h3M72.5 76.5l2 2M85.5 89.5l2 2M87.5 76.5l-2 2M74.5 89.5l-2 2" stroke-width="1.4"/></g></symbol>
+
+<symbol id="d-sprig" viewBox="0 0 80 160"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M22 156C30 120 38 80 60 8"/>
+<path d="M30 124c-14-2-22-14-22-14c13-5 22 4 22 14zM30 124c-14-2-22-14-22-14"/>
+<path d="M34 104c12-6 26-2 30 2c-10 8-24 6-30-2z"/>
+<path d="M38 86c-12-4-18-16-18-16c12-2 20 6 18 16z"/>
+<path d="M44 66c10-8 24-8 28-4c-8 10-22 10-28 4z"/>
+<path d="M48 48c-10-6-14-18-14-18c11 0 18 8 14 18z"/>
+<path d="M54 30c6-8 18-12 22-8c-4 10-16 12-22 8z"/>
+<path d="M18 116l12 8M68 104l-34 0M22 76l16 10M70 63l-26 3M38 34l10 14M74 23l-20 7" stroke-width="1.2"/></g></symbol>
+
+<symbol id="d-croissant" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M14 78c4-24 32-38 46-38s42 14 46 38c-12-5-24-3-32 4c-4-8-24-8-28 0c-8-7-20-9-32-4z"/>
+<path d="M38 48c4 10 6 20 8 32M60 40v38M82 48c-4 10-6 20-8 32M22 64c6 2 12 6 16 12M98 64c-6 2-12 6-16 12" stroke-width="1.6"/></g></symbol>
+
+<symbol id="d-popcorn" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M32 50l9 56h38l9-56z"/><path d="M47 50l4 56M60 50v56M73 50l-4 56" stroke-width="1.6"/>
+<path d="M30 50c-7-9 3-19 11-13c1-10 15-12 19-3c4-9 18-8 18 2c9-4 15 7 10 14"/>
+<path d="M44 36c2-7 9-8 12-3M66 30c4-5 11-3 11 3" stroke-width="1.6"/></g></symbol>
+
+<symbol id="d-polaroid" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-7 60 60)">
+<rect x="24" y="16" width="72" height="88" rx="3"/><rect x="31" y="23" width="58" height="58"/>
+<circle cx="72" cy="38" r="7"/><path d="M31 72l16-16 12 12 9-8 21 18" /><path d="M36 92c8-3 14 3 22 0s14 2 20-1" stroke-width="1.6"/></g></symbol>
+
+<symbol id="d-swirl" viewBox="0 0 60 60"><path d="M30 30c0-3 4-3 4 0c0 5-8 6-9 0c-1-8 12-10 14-1c2 11-14 15-19 4c-5-13 12-21 22-12c10 10 2 27-12 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+
+<symbol id="d-sparkle" viewBox="0 0 40 40"><path d="M20 3c1.5 11 5 15.5 17 17c-12 1.5-15.5 6-17 17c-1.5-11-5-15.5-17-17c12-1.5 15.5-6 17-17z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+
+<symbol id="d-arrow" viewBox="0 0 80 40"><path d="M4 8c18 22 40 26 66 20M62 20l9 8-11 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+
+<symbol id="d-scene" viewBox="0 0 560 470"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M18 120C150 96 410 96 542 120"/>
+<path d="M18 120c-6 40-10 90-12 150M542 120c6 40 10 90 12 150" stroke-width="1.5"/>
+<path d="M120 112c-8 60-16 140-22 230M222 107c-3 70-5 150-6 240M330 107c3 70 6 150 8 240M436 112c8 60 16 140 22 230" stroke-width="1.5"/>
+<path d="M60 200c8 0 14 2 18 6M480 300c10 0 18 3 22 8M250 420c10-2 18 0 24 4" stroke-width="1.3"/>
+</g>
+<g fill="var(--scene-bg,#FFF6D5)" stroke="none">
+<rect x="63" y="283" width="206" height="140" rx="8"/>
+<ellipse cx="383" cy="226" rx="50" ry="42"/><ellipse cx="385" cy="270" rx="68" ry="16"/>
+<rect x="160" y="184" width="100" height="48" transform="rotate(-10 210 208)"/>
+<rect x="453" y="15" width="81" height="98" transform="rotate(-7 494 64)"/>
+<path d="M26 134c0-20 6-30 22-30s22 10 22 30z"/>
+</g>
+<g fill="var(--scene-bg,#FFF6D5)" stroke="currentColor" stroke-width="2.4"><ellipse cx="410" cy="350" rx="92" ry="34"/><ellipse cx="410" cy="346" rx="66" ry="22" stroke-width="1.5" fill="none"/></g>
+<use href="#d-book" x="40" y="250" width="250" height="196"/>
+<use href="#d-cup" x="290" y="120" width="190" height="190"/>
+<use href="#d-croissant" x="352" y="282" width="118" height="118"/>
+<use href="#d-polaroid" x="430" y="0" width="128" height="128"/>
+<use href="#d-ticket" x="150" y="148" width="120" height="120"/>
+<use href="#d-sprig" x="20" y="0" width="70" height="140"/>
+<g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M28 132c0-18 6-26 20-26s20 8 20 26z"/><path d="M34 112h28"/></g>
+<g font-family="Caveat, cursive" font-size="26" fill="currentColor" stroke="var(--scene-bg,#FFF6D5)" stroke-width="7" stroke-linejoin="round" paint-order="stroke">
+<text x="96" y="452">a good book</text>
+<text x="468" y="256" font-size="24" transform="rotate(-6 468 256)"><tspan>iced latte,</tspan><tspan x="476" dy="25">always</tspan></text>
+<text x="128" y="150" transform="rotate(-8 128 150)">kept the ticket</text>
+<text x="292" y="36" transform="rotate(-4 292 36)">today’s sky →</text>
+</g>
+</symbol>
+</defs>
+</svg>
+<header class="top"><div class="in">
+<a class="logo" href="#home"><svg class="doodle" aria-hidden="true"><use href="#d-cup"/></svg>Postcards from Mai</a>
 <nav class="menu" aria-label="Sections">
 <a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#photos">Photos</a><a href="#days">Days</a><a href="#about">About</a>
 </nav>
-</header>
-<main id="view" aria-live="polite"><p class="muted" style="padding:80px 0;text-align:center">Opening the notebook…</p></main>
-<footer class="bottom">
-<div class="serif it" style="font-size:34px">Books · Coffee · Screens · Photos · Days</div>
-<p>A public little notebook, updated whenever something is worth writing down. All words and photos © Mai. Please ask before using them.</p>
-</footer>
+</div></header>
+<main id="view" aria-live="polite"><p class="muted" style="padding:96px 18px;text-align:center">Opening the notebook…</p></main>
+<footer class="bottom band b-orange"><div class="in">
+<div style="max-width:440px">
+<a class="logo" href="#home" style="font-size:32px"><svg class="doodle" aria-hidden="true"><use href="#d-cup"/></svg>Postcards from Mai</a>
+<p class="hand" style="font-size:26px;margin:10px 0 14px">a postcard a day keeps the burnout away</p>
+<small>A public little notebook, updated whenever something is worth writing down. All words and photos © Mai. Please ask before using them.</small>
 </div>
+<nav aria-label="Footer"><a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#photos">Photos</a><a href="#days">Days</a><a href="#about">About</a></nav>
+<svg class="doodle" aria-hidden="true" style="width:120px;height:120px"><use href="#d-croissant"/></svg>
+</div></footer>
 <script>
 {
 const view = document.getElementById('view');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const src = p => (typeof p === 'string' && /^(media|photos)\/[A-Za-z0-9._-]+$/.test(p)) ? p : '';
 const pic = (p, alt) => src(p) ? `<img src="${src(p)}" alt="${esc(alt)}" loading="lazy">` : '';
+const dd = (id, cls = '', style = '') => `<svg class="doodle ${cls}" style="${style}" aria-hidden="true"><use href="#${id}"/></svg>`;
 const day = d => { const t = new Date(String(d) + 'T12:00:00'); return isNaN(t) ? '' : t.toLocaleDateString('en-GB', {day:'numeric', month:'short'}); };
 const full = d => { const t = new Date(String(d) + 'T12:00:00'); return isNaN(t) ? '' : t.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'}); };
 const wk = d => { const t = new Date(String(d) + 'T12:00:00'); return isNaN(t) ? '' : t.toLocaleDateString('en-GB', {weekday:'long'}); };
 const clamp = (n, max) => Math.max(0, Math.min(max, Math.round(Number(n) || 0)));
 const stars = n => { n = clamp(n, 5); return `<span class="stars" aria-label="${n} out of 5 stars">${'★'.repeat(n)}<span class="off">${'★'.repeat(5 - n)}</span></span>`; };
 const dots = n => { n = clamp(n, 5); return `<span class="stars" aria-label="${n} out of 5">${'●'.repeat(n)}<span class="off">${'●'.repeat(5 - n)}</span></span>`; };
-const tones = ['#A9B59A','#C9B29B','#D9B8A8','#B7A893','#A9B7C4','#D8C7B2'];
+const tones = ['#A4B2E8','#DCCBF2','#F6B88F','#F9D98B','#C8CB72','#E9B7A6'];
 const tone = s => tones[[...String(s)].reduce((a, c) => a + c.charCodeAt(0), 0) % tones.length];
 const paras = t => String(t || '').split(/\n\s*\n/).filter(Boolean).map(p => `<p>${esc(p)}</p>`).join('');
 const short = (t, n) => { t = String(t || ''); return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t; };
-const empty = (line, sub) => `<div class="empty"><div class="hand">${esc(line)}</div><p style="margin:6px 0 0">${esc(sub)}</p></div>`;
+const empty = (icon, line, sub) => `<div class="empty">${dd(icon)}<div class="hand">${esc(line)}</div><p style="margin:6px 0 0" class="muted">${esc(sub)}</p></div>`;
 const tags = list => (Array.isArray(list) ? list : []).map(t => `<span class="tag">${esc(t)}</span>`).join('');
 const back = (href, label) => `<a class="back" href="#${href}">← ${esc(label)}</a>`;
+const band = (cls, inner, extra = '') => `<section class="band ${cls}">${extra}<div class="in">${inner}</div></section>`;
 
 let all = [], about = {}, rollTag = '';
 const byDate = (a, b) => String(b.date || '').localeCompare(String(a.date || '')) || String(b.time || '').localeCompare(String(a.time || ''));
@@ -161,120 +315,135 @@ const link = e => `#e-${esc(e.id)}`;
 
 /* ---------- cards ---------- */
 const coverEl = (e, extra = '') => `<div class="cover" style="--tone:${tone(e.title)};${extra}">${src(e.cover) ? pic(e.cover, 'Cover of ' + e.title) : `<span>${esc(e.title)}</span>`}</div>`;
-const bookCard = e => `<a class="bookcard" href="${link(e)}">${coverEl(e)}<div><div class="eyebrow">Book · ${esc(day(e.finished || e.date))}</div><div class="card-title">${esc(e.title)}</div><div class="muted" style="font-size:14px">${esc(e.author)}</div><div style="margin-top:6px">${stars(e.rating)}</div></div></a>`;
-const coffeeCard = (e, i = 0) => `<a class="postcard ${i % 2 ? 'tilt-r' : 'tilt-l'}" href="${link(e)}"><div class="front">${pic(e.photo, e.title)}<div class="stamp"><div>${esc(e.rating)}<small>/ 10</small></div></div><div class="greet">Greetings from ${esc(e.title)}</div></div><div style="padding:12px 4px 2px"><div class="eyebrow">Coffee · ${esc(day(e.date))}</div><p>${esc(short(e.note, 110))}</p></div></a>`;
-const ticketCard = (e, i = 0) => `<a class="ticket ${i % 2 ? 'tilt-l' : 'tilt-r'}" href="${link(e)}"><div class="main"><div class="k">Admit one · ${esc(e.kind === 'series' ? 'Series' : 'Film')}</div><div class="card-title">${esc(e.title)}</div><div style="font-size:14px;color:var(--blush)">Watched ${esc(day(e.date))}${e.where ? ' · ' + esc(e.where) : ''}</div></div><div class="stub"><div class="score">${clamp(e.rating, 5)}</div><div style="font-size:10px;letter-spacing:.14em;color:var(--blush)">/ 5</div></div></a>`;
-const dayCard = e => `<a class="daycard" href="${link(e)}"><div><div class="eyebrow">Day · ${esc(wk(e.date))}</div><div class="card-title it">${esc(e.title)}</div><p style="margin:0;font-size:15px;color:#4A413A">${esc(short(e.text, 140))}</p></div>${e.mood ? `<div class="hand" style="font-size:22px;color:var(--brown)">mood: ${esc(e.mood)}</div>` : ''}</a>`;
+const bookCard = e => `<a class="bookcard sticker" href="${link(e)}">${coverEl(e)}<div><div class="label">Book · ${esc(day(e.finished || e.date))}</div><div class="card-title">${esc(e.title)}</div><div class="muted" style="font-size:15px">${esc(e.author)}</div><div style="margin-top:6px">${stars(e.rating)}</div></div></a>`;
+const coffeeCard = (e, i = 0) => `<a class="postcard ${i % 2 ? 'tilt-r' : 'tilt-l'}" href="${link(e)}"><div class="front">${pic(e.photo, e.title)}<div class="stamp"><div>${esc(e.rating)}<small>/ 10</small></div></div><div class="greet">Greetings from ${esc(e.title)}</div></div><div style="padding:12px 4px 2px"><div class="label">Coffee · ${esc(day(e.date))}</div><p>${esc(short(e.note, 110))}</p></div></a>`;
+const ticketCard = (e, i = 0) => `<a class="ticket ${i % 2 ? 'tilt-l' : 'tilt-r'}" href="${link(e)}"><div class="main"><div class="label">Admit one · ${esc(e.kind === 'series' ? 'Series' : 'Film')}</div><div class="card-title">${esc(e.title)}</div><div style="font-size:15px">Watched ${esc(day(e.date))}${e.where ? ' · ' + esc(e.where) : ''}</div></div><div class="stub"><div class="score">${clamp(e.rating, 5)}</div><div class="label" style="font-size:10px">/ 5</div></div></a>`;
+const dayCard = e => `<a class="daycard sticker" href="${link(e)}"><div><div class="label">Day · ${esc(wk(e.date))}</div><div class="card-title it">${esc(e.title)}</div><p style="margin:0;font-size:16px">${esc(short(e.text, 140))}</p></div>${e.mood ? `<div class="hand" style="font-size:23px">mood: ${esc(e.mood)}</div>` : ''}</a>`;
 const frame = e => `<a class="frame" href="${link(e)}"><div class="pic">${pic(e.photo, e.caption || e.title || 'Photo')}</div><div class="meta"><span>${esc(day(e.date))}</span><span>${esc(e.time)}</span></div><div class="hand">${esc(e.caption)}</div></a>`;
 const card = (e, i) => ({book: bookCard, coffee: coffeeCard, watched: ticketCard, day: dayCard, photo: frame}[e.type] || (() => ''))(e, i);
 
-const potdBand = p => `<a class="potd" href="${link(p)}"><div class="polaroid"><div class="pic">${pic(p.photo, p.caption || 'Photo of the day')}</div><div class="hand">${esc(p.caption)}</div></div><div><div class="eyebrow" style="color:var(--gold)">Photo of the day · ${esc(day(p.date))}</div><div class="serif" style="font-size:clamp(34px,5vw,44px);line-height:1;margin:10px 0 14px">${esc(p.title || p.caption)}</div><div style="font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:4px">See the whole camera roll</div></div></a>`;
+const SECTIONS = [
+  ['books', 'Books', 'd-books', 'book', 'what I read, with stars', ['book', 'books']],
+  ['coffee', 'Coffee', 'd-cup', 'coffee', 'cafés, sent as postcards', ['postcard', 'postcards']],
+  ['watched', 'Watched', 'd-ticket', 'watched', 'films & series, kept as tickets', ['ticket', 'tickets']],
+  ['photos', 'Photos', 'd-camera', 'photo', 'little things I stopped for', ['photo', 'photos']],
+  ['days', 'Days', 'd-notebook', 'day', 'notes from ordinary days', ['day', 'days']]
+];
+const countLine = (type, words) => { const n = of(type).length; return n ? `${n} ${n === 1 ? words[0] : words[1]}` : 'coming soon'; };
 
-/* ---------- views ---------- */
+/* ---------- home ---------- */
 function home() {
   const latest = all.filter(e => e.type !== 'photo').sort(byDate);
   const potd = of('photo')[0];
   const top = latest[0];
   const feature = top && top.type === 'book'
-    ? `<a class="feature" href="${link(top)}">${coverEl(top)}<div><div class="eyebrow">Book · Finished ${esc(day(top.finished || top.date))}</div><div class="serif" style="font-size:clamp(36px,5vw,48px);line-height:1;margin:10px 0 12px">${esc(top.title)}</div><div style="font-size:22px">${stars(top.rating)}</div><p style="margin:14px 0 0;color:#4A413A">${esc(short(top.review, 220))}</p></div></a>`
+    ? `<a class="feature sticker" href="${link(top)}">${coverEl(top)}<div><div class="label">Book · Finished ${esc(day(top.finished || top.date))}</div><div class="display" style="font-size:clamp(34px,5vw,46px);line-height:1;margin:10px 0 12px">${esc(top.title)}</div><div style="font-size:22px">${stars(top.rating)}</div><p style="margin:14px 0 0">${esc(short(top.review, 220))}</p></div></a>`
     : '';
   const rest = feature ? latest.slice(1, 10) : latest.slice(0, 9);
-  return `<section class="hero"><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp;<br><span class="it">small days</span></h1><p class="lead">A postcard a day keeps the burnout away.</p></section>
-  <div class="chips"><a class="chip" href="#books">Books</a><a class="chip" href="#coffee">Coffee shops</a><a class="chip" href="#watched">Watched</a><a class="chip" href="#photos">Photos</a><a class="chip" href="#days">Days</a></div>
-  ${latest.length ? feature + `<div class="grid">${rest.map(card).join('')}</div>` : empty('The first postcard is on its way.', 'Books, cafés, films and small days will show up here.')}
-  ${potd ? potdBand(potd) : ''}`;
+  const words = '<span>a postcard a day keeps the burnout away</span><span>' + dd('d-sparkle') + '</span><span>books</span><span>' + dd('d-sparkle') + '</span><span>coffee</span><span>' + dd('d-sparkle') + '</span><span>films &amp; series</span><span>' + dd('d-sparkle') + '</span><span>photos</span><span>' + dd('d-sparkle') + '</span><span>small days</span><span>' + dd('d-sparkle') + '</span>';
+  const aboutLine = short(String(about.text || '').split(/\n\s*\n/)[0], 170);
+  return band('paper', `<div class="hero">
+      <div><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp; <span class="it">small days.</span></h1><p class="lead">A postcard a day keeps the burnout away.</p>
+      <div class="btns"><a class="btn" href="#latest">Read the latest →</a><a class="btn soft" href="#about">Hello, I’m Mai</a></div></div>
+      <div class="scene-wrap"><svg class="scene doodle" viewBox="0 0 560 470" role="img" aria-label="A sketch of a café table with a book, a coffee, a croissant, a ticket and a polaroid"><use href="#d-scene"/></svg></div>
+    </div>`)
+  + `<div class="ribbon" aria-hidden="true"><div class="track">${words}${words}</div></div>`
+  + band('b-peri', `<div class="head"><div><div class="label">What you’ll find here</div><h2 style="margin:8px 0 0">Five little corners of <span class="it">one cozy notebook.</span></h2></div></div>
+      <div class="menu-cards">${SECTIONS.map(s => `<a class="mcard" href="#${s[0]}"><div class="label">${s[1]}</div>${dd(s[2])}<div class="hand" style="font-size:22px;line-height:1.1">${s[4]}</div><div class="count">${countLine(s[3], s[5])}</div></a>`).join('')}</div>`,
+      dd('d-sprig', 'side', 'left:calc(50% - 680px);top:60px;width:80px;height:160px') + dd('d-swirl', 'side', 'right:calc(50% - 660px);bottom:50px;width:64px;height:64px'))
+  + `<section class="band" id="latest">${dd('d-popcorn', 'side', 'right:calc(50% - 690px);top:80px;width:96px;height:96px')}<div class="in"><div class="head"><div><div class="label">Fresh from the notebook</div><h2 style="margin:8px 0 0">The latest <span class="it">postcards</span></h2></div></div>
+      ${latest.length ? feature + `<div class="grid">${rest.map(card).join('')}</div>` : empty('d-polaroid', 'The first postcard is on its way.', 'Books, cafés, films and small days will show up here.')}</div></section>`
+  + (potd ? band('b-choc', `<a class="potd" href="${link(potd)}"><div class="polaroid"><div class="pic">${pic(potd.photo, potd.caption || 'Photo of the day')}</div><div class="hand">${esc(potd.caption)}</div></div><div><div class="label" style="color:#F9D98B">Photo of the day · ${esc(day(potd.date))}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 16px">${esc(potd.title || potd.caption)}</div><span class="btn soft">See the camera roll →</span></div></a>`) : '')
+  + band('b-lav', `<div style="display:flex;flex-wrap:wrap;gap:24px 40px;align-items:center;justify-content:space-between"><div style="flex:1 1 420px"><div class="hand" style="font-size:28px">hello,</div><h2 style="margin:0 0 10px">${esc(about.heading || 'I’m Mai')}</h2><p style="margin:0;font-size:18px;max-width:52ch">${esc(aboutLine)}</p></div><a class="btn" href="#about">More about me →</a></div>`);
 }
 
+/* ---------- section pages ---------- */
+function pageHead(icon, eyebrow, title, sub) {
+  return band('paper', `<div class="pagehead">${dd(icon)}<div><div class="hand" style="font-size:28px">${eyebrow}</div><h1>${title}</h1>${sub ? `<p class="muted" style="margin:10px 0 0">${esc(sub)}</p>` : ''}</div></div>`);
+}
 function section(t) {
   const meta = {
-    books: ['what I’ve been reading', 'The <span class="it">bookshelf</span>', 'book', 'No books yet.', 'The first review is coming soon.'],
-    coffee: ['wish you were here', 'Coffee <span class="it">postcards</span>', 'coffee', 'No postcards yet.', 'The first café is coming soon.'],
-    watched: ['kept the ticket', 'The <span class="it">ticket box</span>', 'watched', 'No tickets yet.', 'Films and series will show up here.'],
-    days: ['nothing big, just days', 'Small <span class="it">days</span>', 'day', 'No days written yet.', 'The first little note is coming soon.']
+    books: ['d-books', 'what I’ve been reading', 'The <span class="it">bookshelf</span>', 'book', 'No books yet.', 'The first review is coming soon.', ['book', 'books']],
+    coffee: ['d-cup', 'wish you were here', 'Coffee <span class="it">postcards</span>', 'coffee', 'No postcards yet.', 'The first café is coming soon.', ['postcard', 'postcards']],
+    watched: ['d-ticket', 'kept the ticket', 'The <span class="it">ticket box</span>', 'watched', 'No tickets yet.', 'Films and series will show up here.', ['ticket', 'tickets']],
+    days: ['d-notebook', 'nothing big, just days', 'Small <span class="it">days</span>', 'day', 'No days written yet.', 'The first little note is coming soon.', ['day', 'days']]
   }[t];
-  const list = of(meta[2]);
-  return `<section class="hero"><div class="hand">${meta[0]}</div><h1>${meta[1]}</h1></section>${list.length ? `<div class="grid">${list.map(card).join('')}</div>` : empty(meta[3], meta[4])}`;
+  const list = of(meta[3]);
+  return pageHead(meta[0], meta[1], meta[2], list.length ? countLine(meta[3], meta[6]) : '')
+    + band('', list.length ? `<div class="grid">${list.map(card).join('')}</div>` : empty(meta[0], meta[4], meta[5]));
 }
 
 function photos() {
   const list = of('photo');
-  if (!list.length) return `<section class="hero"><div class="hand">things I stopped to look at</div><h1>The <span class="it">camera roll</span></h1></section>${empty('No photos yet.', 'Skies, coffee cups and little things will show up here.')}`;
+  const head = pageHead('d-camera', 'things I stopped to look at', 'The <span class="it">camera roll</span>', list.length ? countLine('photo', ['photo', 'photos']) : '');
+  if (!list.length) return head + band('', empty('d-camera', 'No photos yet.', 'Skies, coffee cups and little things will show up here.'));
   const p = list[0];
   const allTags = [...new Set(list.flatMap(e => Array.isArray(e.tags) ? e.tags : []))];
   const shown = rollTag ? list.filter(e => (e.tags || []).includes(rollTag)) : list;
-  return `<section class="hero"><div class="hand">things I stopped to look at</div><h1>The <span class="it">camera roll</span></h1></section>
-  <section style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;padding-bottom:56px">
+  return head + band('', `<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;padding-bottom:56px">
     <a class="polaroid" href="${link(p)}" style="flex:3 1 400px"><div class="pic">${pic(p.photo, p.caption || 'Photo of the day')}</div><div class="hand">${esc(p.caption)}</div></a>
-    <div style="flex:2 1 260px"><div class="eyebrow">Photo of the day · ${esc(day(p.date))}</div><div class="serif" style="font-size:clamp(36px,5vw,48px);line-height:1;margin:10px 0 14px">${esc(p.title || p.caption)}</div>${p.note ? `<p class="muted">${esc(p.note)}</p>` : ''}<div>${tags(p.tags)}</div></div>
-  </section>
-  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding-top:28px;border-top:1px solid var(--line)"><h2 style="margin:0">The roll</h2>
-  <div class="chips" style="padding:0;justify-content:flex-end"><button class="chip${rollTag ? '' : ' on'}" data-tag="">All</button>${allTags.map(t => `<button class="chip${rollTag === t ? ' on' : ''}" data-tag="${esc(t)}">${esc(t)}</button>`).join('')}</div></div>
-  <div class="film"><div class="holes" aria-hidden="true"></div><div class="frames">${shown.map(frame).join('')}</div><div class="holes b" aria-hidden="true"></div></div>`;
+    <div style="flex:2 1 260px"><div class="label">Photo of the day · ${esc(day(p.date))}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 14px">${esc(p.title || p.caption)}</div>${p.note ? `<p class="muted">${esc(p.note)}</p>` : ''}<div>${tags(p.tags)}</div></div></div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding-top:28px;border-top:1.5px solid var(--choc)"><h2 style="margin:0">The roll</h2>
+  <div class="btns">${['', ...allTags].map(t => `<button class="chip${rollTag === t ? ' on' : ''}" data-tag="${esc(t)}">${t ? esc(t) : 'All'}</button>`).join('')}</div></div>
+  <div class="film"><div class="holes" aria-hidden="true"></div><div class="frames">${shown.map(frame).join('')}</div><div class="holes b" aria-hidden="true"></div></div>`);
 }
 
+/* ---------- entry pages ---------- */
 function bookPage(e) {
   const facts = [['Genre', e.genre], ['Started', day(e.started)], ['Finished', day(e.finished)], ['Pages', e.pages], ['Read as', e.format]].filter(f => f[1]);
-  return `${back('books', 'All books')}
-  <section style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-end;padding:24px 0 40px">${coverEl(e, 'flex:0 0 min(240px,60vw)')}
-  <div style="flex:1 1 380px">${e.tagline ? `<div class="hand" style="font-size:26px;color:var(--brown)">${esc(e.tagline)}</div>` : ''}<h1 style="font-size:clamp(44px,7vw,80px)">${esc(e.title)}</h1><div style="font-size:18px;color:#4A413A">${esc(e.author)}</div><div style="font-size:28px;margin-top:14px">${stars(e.rating)}</div></div></section>
-  ${facts.length ? `<div class="strip" style="margin:0">${facts.map(f => `<div><small class="eyebrow">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>` : ''}
-  <div class="cols">${e.summary ? `<div><h2>In short</h2><p class="muted" style="margin:0;line-height:1.7">${esc(e.summary)}</p></div>` : ''}<div class="wide prose"><h2>What I thought</h2>${paras(e.review)}</div></div>
-  ${e.quote ? `<blockquote style="margin:0;padding:44px 32px;background:var(--blush);border-radius:20px;text-align:center"><div class="eyebrow">Favourite line</div><p class="serif it" style="margin:14px auto 0;max-width:680px;font-size:clamp(24px,3.4vw,36px);line-height:1.25">“${esc(e.quote)}”</p></blockquote>` : ''}
-  ${(e.photos || []).length ? `<h2 style="margin-top:48px">The vibe</h2><div class="two">${e.photos.map(p => `<div class="pic">${pic(p, 'Reading ' + e.title)}</div>`).join('')}</div>` : ''}`;
+  return band('paper', `${back('books', 'All books')}<div style="display:flex;flex-wrap:wrap;gap:44px;align-items:flex-end">${coverEl(e, 'flex:0 0 min(240px,60vw);box-shadow:6px 6px 0 var(--choc)')}
+    <div style="flex:1 1 380px">${e.tagline ? `<div class="hand" style="font-size:28px">${esc(e.tagline)}</div>` : ''}<h1>${esc(e.title)}</h1><div style="font-size:19px">${esc(e.author)}</div><div style="font-size:28px;margin-top:12px">${stars(e.rating)}</div></div></div>`)
+  + band('', `${facts.length ? `<div class="strip" style="margin-top:0">${facts.map(f => `<div><small class="label">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>` : ''}
+    <div class="cols" style="padding-top:12px">${e.summary ? `<div><h2>In short</h2><p class="muted" style="margin:0;line-height:1.7">${esc(e.summary)}</p></div>` : ''}<div class="wide prose"><h2>What I thought</h2>${paras(e.review)}</div></div>
+    ${e.quote ? `<blockquote class="quote" style="margin-top:40px"><div class="label">Favourite line</div><p class="display it" style="margin:14px auto 0;max-width:680px;font-size:clamp(24px,3.4vw,36px);line-height:1.25">“${esc(e.quote)}”</p></blockquote>` : ''}
+    ${(e.photos || []).length ? `<h2 style="margin-top:48px">The vibe</h2><div class="two">${e.photos.map(p => `<div class="pic">${pic(p, 'Reading ' + e.title)}</div>`).join('')}</div>` : ''}`);
 }
 
 function coffeePage(e) {
   const s = e.scores || {};
   const rows = [['Coffee', s.coffee], ['Vibe', s.vibe], ['Seating', s.seating], ['Good for reading', s.reading], ['Wi-Fi', s.wifi]].filter(r => r[1] != null);
   const lines = [['Ordered', e.ordered], ['Spent', e.spent], ['With', e.with]].filter(l => l[1]);
-  return `${back('coffee', 'All postcards')}
-  <div class="hero" style="padding:16px 0 32px"><div class="hand">a postcard from</div><h1 style="font-size:clamp(44px,8vw,88px)">${esc(e.title)}</h1></div>
+  return band('paper', `${back('coffee', 'All postcards')}<div style="text-align:center;padding:4px 0 30px"><div class="hand" style="font-size:28px">a postcard from</div><h1>${esc(e.title)}</h1></div>
   <div class="bigcard"><div class="front">${pic(e.photo, e.title)}${e.area ? `<div class="greet" style="font-size:32px;right:16px">Greetings from ${esc(e.area)}</div>` : ''}</div>
-  <div class="back"><div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start"><div class="postmark"><b>Visited</b><span>${esc(day(e.date))}</span><b>${esc(e.city || '')}</b></div><div class="stamp"><div>${esc(e.rating)}<small>OUT OF 10</small></div></div></div>
-  <p class="note">${esc(e.note)}</p><div class="lines" style="margin-top:auto">${lines.map(l => `<div><b>${esc(l[0])}</b>${esc(l[1])}</div>`).join('')}</div><div class="hand" style="text-align:right;font-size:28px;color:var(--brown)">— Mai</div></div></div>
-  <div class="cols">${rows.length ? `<div class="box"><div class="eyebrow" style="margin-bottom:8px">The little scores</div>${rows.map(r => `<div class="row"><span>${esc(r[0])}</span>${dots(r[1])}</div>`).join('')}</div>` : ''}
-  <div>${(e.tags || []).length ? `<div class="eyebrow" style="margin-bottom:12px">Good for</div>${tags(e.tags)}` : ''}${(e.photos || []).length ? `<div class="two">${e.photos.map(p => `<div class="pic">${pic(p, e.title)}</div>`).join('')}</div>` : ''}</div></div>`;
+  <div class="backside"><div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start"><div class="postmark"><b>Visited</b><span>${esc(day(e.date))}</span><b>${esc(e.city || '')}</b></div><div class="stamp"><div>${esc(e.rating)}<small>OUT OF 10</small></div></div></div>
+  <p class="note">${esc(e.note)}</p><div class="lines" style="margin-top:auto">${lines.map(l => `<div><b>${esc(l[0])}</b>${esc(l[1])}</div>`).join('')}</div><div class="hand" style="text-align:right;font-size:30px">— Mai</div></div></div>`)
+  + band('', `<div class="cols" style="padding-top:0">${rows.length ? `<div class="box"><div class="label" style="margin-bottom:8px">The little scores</div>${rows.map(r => `<div class="row"><span>${esc(r[0])}</span>${dots(r[1])}</div>`).join('')}</div>` : ''}
+  <div>${(e.tags || []).length ? `<div class="label" style="margin-bottom:12px">Good for</div>${tags(e.tags)}` : ''}${(e.photos || []).length ? `<div class="two">${e.photos.map(p => `<div class="pic">${pic(p, e.title)}</div>`).join('')}</div>` : ''}</div></div>`);
 }
 
 function watchedPage(e) {
   const facts = [['Type', e.kind === 'series' ? 'Series' + (e.season ? ' · ' + e.season : '') : 'Film'], ['Watched', day(e.date)], ['Where', e.where], ['Progress', e.progress]].filter(f => f[1]);
-  return `${back('watched', 'Everything I’ve watched')}
-  <div class="hero" style="padding:16px 0 32px"><div class="hand" style="color:var(--wine)">kept the ticket</div><h1 style="font-size:clamp(44px,8vw,88px)">${esc(e.title)}</h1></div>
-  <div class="ticket bigticket"><div class="main"><div class="poster">${pic(e.poster, 'Poster for ' + e.title)}</div><div style="flex:1 1 220px;display:flex;flex-direction:column;gap:14px"><div class="k">Admit one</div><div class="serif" style="font-size:38px;line-height:1">${esc(e.title)}</div><div class="facts" style="margin-top:auto">${facts.map(f => `<div><small>${esc(f[0])}</small>${esc(f[1])}</div>`).join('')}</div></div></div>
-  <div class="stub"><div class="k" style="font-size:10px">My rating</div><div class="score">${clamp(e.rating, 5)}<span style="font-size:26px;color:var(--blush)">/5</span></div>${e.verdict ? `<div class="hand" style="font-size:24px">${esc(e.verdict)}</div>` : ''}</div></div>
-  <div class="cols"><div class="wide prose"><h2>What I thought</h2>${paras(e.review)}</div>
-  <div style="display:flex;flex-direction:column;gap:14px">${e.likeIf ? `<div class="box"><div class="eyebrow" style="color:var(--wine)">Watch it if you like</div><div style="margin-top:8px">${esc(e.likeIf)}</div></div>` : ''}${e.snack ? `<div class="box"><div class="eyebrow" style="color:var(--wine)">Snack of choice</div><div class="hand" style="font-size:24px;margin-top:4px">${esc(e.snack)}</div></div>` : ''}</div></div>`;
+  return band('paper', `${back('watched', 'Everything I’ve watched')}<div style="text-align:center;padding:4px 0 30px"><div class="hand" style="font-size:28px">kept the ticket</div><h1>${esc(e.title)}</h1></div>
+  <div class="ticket bigticket"><div class="main"><div class="poster">${pic(e.poster, 'Poster for ' + e.title)}</div><div style="flex:1 1 220px;display:flex;flex-direction:column;gap:14px"><div class="label">Admit one</div><div class="display" style="font-size:38px;line-height:1">${esc(e.title)}</div><div class="facts" style="margin-top:auto">${facts.map(f => `<div><small class="label" style="font-size:10px">${esc(f[0])}</small>${esc(f[1])}</div>`).join('')}</div></div></div>
+  <div class="stub"><div class="label" style="font-size:10px">My rating</div><div class="score">${clamp(e.rating, 5)}<span style="font-size:26px">/5</span></div>${e.verdict ? `<div class="hand" style="font-size:24px">${esc(e.verdict)}</div>` : ''}</div></div>`)
+  + band('', `<div class="cols" style="padding-top:0"><div class="wide prose"><h2>What I thought</h2>${paras(e.review)}</div>
+  <div style="display:flex;flex-direction:column;gap:16px">${e.likeIf ? `<div class="box"><div class="label">Watch it if you like</div><div style="margin-top:8px">${esc(e.likeIf)}</div></div>` : ''}${e.snack ? `<div class="box" style="display:flex;gap:14px;align-items:center">${dd('d-popcorn', '', 'width:60px;height:60px;flex:none')}<div><div class="label">Snack of choice</div><div class="hand" style="font-size:25px">${esc(e.snack)}</div></div></div>` : ''}</div></div>`);
 }
 
 function photoPage(e) {
-  return `${back('photos', 'The camera roll')}
-  <section style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;padding:24px 0"><div class="polaroid" style="flex:3 1 420px"><div class="pic" style="aspect-ratio:auto">${pic(e.photo, e.caption || e.title || 'Photo')}</div><div class="hand">${esc(e.caption)}</div></div>
-  <div style="flex:2 1 260px"><div class="eyebrow">${esc(full(e.date))}${e.time ? ' · ' + esc(e.time) : ''}</div><div class="serif" style="font-size:clamp(36px,5vw,48px);line-height:1;margin:10px 0 14px">${esc(e.title || e.caption)}</div>${e.note ? `<p class="muted">${esc(e.note)}</p>` : ''}<div>${tags(e.tags)}</div></div></section>`;
+  return band('paper', `${back('photos', 'The camera roll')}<div style="display:flex;flex-wrap:wrap;gap:44px;align-items:center;padding-top:10px"><div class="polaroid" style="flex:3 1 420px"><div class="pic" style="aspect-ratio:auto">${pic(e.photo, e.caption || e.title || 'Photo')}</div><div class="hand">${esc(e.caption)}</div></div>
+  <div style="flex:2 1 260px"><div class="label">${esc(full(e.date))}${e.time ? ' · ' + esc(e.time) : ''}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 14px">${esc(e.title || e.caption)}</div>${e.note ? `<p class="muted">${esc(e.note)}</p>` : ''}<div>${tags(e.tags)}</div></div></div>`);
 }
 
 function dayPage(e) {
   const list = of('day'); const i = list.findIndex(x => x.id === e.id);
   const newer = list[i - 1], older = list[i + 1];
   const facts = [['Mood', e.mood], ['Reading', e.reading], ['On repeat', e.onRepeat], ['Ate', e.ate]].filter(f => f[1]);
-  return `${back('days', 'All days')}<article style="max-width:680px;margin:0 auto;padding-top:24px">
-  <div style="text-align:center"><div class="eyebrow">${esc(full(e.date))}</div><h1 class="it" style="font-size:clamp(48px,9vw,92px);margin-top:12px">${esc(e.title)}</h1></div>
-  ${facts.length ? `<div class="strip">${facts.map(f => `<div><small class="eyebrow">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>` : ''}
+  return band('paper', `${back('days', 'All days')}<div style="text-align:center;max-width:760px;margin:0 auto"><div class="label">${esc(full(e.date))}</div><h1 class="it" style="margin-top:12px">${esc(e.title)}</h1></div>`)
+  + band('', `<article style="max-width:700px;margin:0 auto">${facts.length ? `<div class="strip" style="margin-top:0">${facts.map(f => `<div><small class="label">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>` : ''}
   <div class="prose">${paras(e.text)}</div>
   ${(e.photos || []).length ? `<div class="two">${e.photos.map(p => `<div class="pic">${pic(p, e.title)}</div>`).join('')}</div>` : ''}
-  <div class="pager">${older ? `<a href="${link(older)}">← ${esc(wk(older.date))}</a>` : '<span></span>'}${newer ? `<a href="${link(newer)}">${esc(wk(newer.date))} →</a>` : '<span></span>'}</div></article>`;
+  <div class="pager">${older ? `<a href="${link(older)}">← ${esc(wk(older.date))}</a>` : '<span></span>'}${newer ? `<a href="${link(newer)}">${esc(wk(newer.date))} →</a>` : '<span></span>'}</div></article>`);
 }
 
 function aboutPage() {
   const a = about || {};
   const now = [['Reading', a.reading], ['Drinking', a.drinking], ['Watching', a.watching], ['Listening to', a.listening]].filter(f => f[1]);
-  const sections = [['books', 'Books', 'what I read, with stars'], ['coffee', 'Coffee', 'cafés, sent as postcards'], ['watched', 'Watched', 'films and series, kept as tickets'], ['photos', 'Photos', 'little things I stopped to look at'], ['days', 'Days', 'small notes from ordinary days']];
-  return `<section style="display:flex;flex-wrap:wrap;gap:48px;align-items:center;padding:56px 0 40px">
-  ${src(a.photo) ? `<div class="polaroid" style="flex:0 1 300px"><div class="pic" style="aspect-ratio:4/5">${pic(a.photo, 'A photo from Mai')}</div><div class="hand">${esc(a.caption || 'hi, it’s me')}</div>${a.credit ? `<div style="position:absolute;left:18px;right:18px;bottom:-26px;font-size:12px;color:var(--soft)">${esc(a.credit)}</div>` : ''}</div>` : ''}
-  <div style="flex:1 1 360px"><div class="hand" style="font-size:28px;color:var(--brown)">hello,</div><h1 style="font-size:clamp(44px,7vw,80px)">${esc(a.heading || 'I’m Mai')}</h1><div class="prose">${paras(a.text)}</div></div></section>
-  ${now.length ? `<h2>Currently</h2><div class="strip" style="margin-top:0">${now.map(f => `<div><small class="eyebrow">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>` : ''}
-  <h2 style="margin-top:40px">What you’ll find here</h2>
-  <div class="grid" style="gap:14px">${sections.map(x => `<a class="box" href="#${x[0]}"><div class="serif" style="font-size:28px;line-height:1.1">${x[1]}</div><div class="muted" style="font-size:15px;margin-top:4px">${x[2]}</div></a>`).join('')}</div>
-  <p class="hand" style="font-size:24px;color:var(--brown);text-align:center;margin:48px 0 0">a postcard a day keeps the burnout away</p>`;
+  return band('paper', `<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
+    ${src(a.photo) ? `<div class="polaroid" style="flex:0 1 320px"><div class="pic" style="aspect-ratio:4/5">${pic(a.photo, 'A photo from Mai')}</div><div class="hand">${esc(a.caption || 'hi, it’s me')}</div>${a.credit ? `<div style="position:absolute;left:18px;right:18px;bottom:-30px;font-size:13px" class="muted">${esc(a.credit)}</div>` : ''}</div>` : dd('d-sprig', '', 'width:110px;height:220px;flex:none')}
+    <div style="flex:1 1 360px"><div class="hand" style="font-size:30px">hello,</div><h1>${esc(a.heading || 'I’m Mai')}</h1><div class="prose">${paras(a.text)}</div></div></div>`)
+  + (now.length ? band('b-lav', `<h2>Currently</h2><div class="strip" style="margin:0">${now.map(f => `<div><small class="label">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>`) : '')
+  + band('b-peri', `<div class="label">What you’ll find here</div><h2 style="margin:8px 0 0">Pull up a chair.</h2><div class="menu-cards">${SECTIONS.map(s => `<a class="mcard" href="#${s[0]}"><div class="label">${s[1]}</div>${dd(s[2])}<div class="hand" style="font-size:22px;line-height:1.1">${s[4]}</div></a>`).join('')}</div>`);
 }
 
 /* ---------- routing ---------- */
@@ -289,18 +458,19 @@ function route() {
   else if (h === 'photos') { active = h; html = photos(); }
   else if (h === 'about') { active = h; html = aboutPage(); }
   view.innerHTML = html || home();
+  if (h === 'latest') document.getElementById('latest')?.scrollIntoView();
   document.querySelectorAll('nav.menu a').forEach(a => a.toggleAttribute('aria-current', a.getAttribute('href') === '#' + active));
 }
 function track() {
   const h = location.hash.slice(1) || 'home';
   const e = h.startsWith('e-') ? all.find(x => x.id === h.slice(2)) : null;
-  const names = {home: 'Home', books: 'Books', coffee: 'Coffee', watched: 'Watched', photos: 'Photos', days: 'Days', about: 'About'};
+  const names = {home: 'Home', latest: 'Home', books: 'Books', coffee: 'Coffee', watched: 'Watched', photos: 'Photos', days: 'Days', about: 'About'};
   const title = e ? (e.title || e.caption || 'Entry') : (names[h] || 'Home');
   document.title = title === 'Home' ? 'Postcards from Mai' : title + ' · Postcards from Mai';
   let tries = 0;
   const send = () => {
     const gc = window.goatcounter;
-    if (gc && typeof gc.count === 'function') { try { gc.count({path: '/' + h, title}); } catch (err) {} }
+    if (gc && typeof gc.count === 'function') { try { gc.count({path: '/' + (h === 'latest' ? 'home' : h), title}); } catch (err) {} }
     else if (tries++ < 20) setTimeout(send, 500);
   };
   send();
@@ -309,12 +479,12 @@ view.addEventListener('click', ev => {
   const b = ev.target.closest('button[data-tag]');
   if (b) { rollTag = b.dataset.tag; route(); }
 });
-window.addEventListener('hashchange', () => { rollTag = ''; route(); window.scrollTo(0, 0); track(); });
+window.addEventListener('hashchange', () => { rollTag = ''; route(); if (location.hash !== '#latest') window.scrollTo(0, 0); track(); });
 
 fetch('entries.json', {cache: 'no-store'})
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
   .then(d => { about = (d.about && typeof d.about === 'object') ? d.about : {}; all = (Array.isArray(d.entries) ? d.entries : []).filter(e => e && typeof e === 'object' && /^[a-z0-9-]+$/.test(e.id || '')); route(); track(); })
-  .catch(() => { view.innerHTML = empty('The notebook didn’t open.', 'Please refresh the page in a moment.'); });
+  .catch(() => { view.innerHTML = band('paper', empty('d-cup', 'The notebook didn’t open.', 'Please refresh the page in a moment.')); });
 }
 </script>
 </body>
