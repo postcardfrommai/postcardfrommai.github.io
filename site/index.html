@@ -138,7 +138,7 @@ nav.menu a[aria-current]{text-decoration:underline;text-decoration-thickness:2px
 .polaroid.stack::before,.polaroid.stack::after{content:"";position:absolute;inset:0;background:var(--cream);border:1.5px solid var(--choc);z-index:-1}
 .polaroid.stack::before{transform:rotate(5deg) translate(10px,4px)}.polaroid.stack::after{transform:rotate(-4deg) translate(-8px,6px)}
 .gallery{margin-top:10px}
-.gtrack{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 6px 26px;scrollbar-width:none;outline-offset:6px}
+.gtrack{position:relative;display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 6px 26px;scrollbar-width:none;outline-offset:6px}
 .gtrack::-webkit-scrollbar{display:none}
 .slide{flex:0 0 auto;margin:0;scroll-snap-align:center;background:var(--cream);border:1.5px solid var(--choc);box-shadow:5px 5px 0 var(--choc);padding:12px 12px 6px;transform:rotate(-1deg)}
 .slide.r{transform:rotate(1deg)}
@@ -530,7 +530,18 @@ function setupGallery() {
   const slides = [...t.children], count = view.querySelector('.gcount'), btns = view.querySelectorAll('.gbtn');
   const current = () => { if (t.scrollLeft < 4) return 0; if (t.scrollLeft + t.clientWidth >= t.scrollWidth - 4) return slides.length - 1; const r = t.getBoundingClientRect(), mid = r.left + r.width / 2; let best = 0, d = Infinity; slides.forEach((s, i) => { const b = s.getBoundingClientRect(), x = Math.abs(b.left + b.width / 2 - mid); if (x < d) { d = x; best = i; } }); return best; };
   const update = () => { const i = current(); count.textContent = `${i + 1} / ${slides.length}`; btns[0].disabled = i === 0; btns[1].disabled = i === slides.length - 1; };
-  const go = dir => { const i = Math.max(0, Math.min(slides.length - 1, current() + dir)); slides[i].scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest', inline: 'center'}); };
+  let idx = 0, timer;
+  const go = dir => {
+    idx = Math.max(0, Math.min(slides.length - 1, current() + dir));
+    const sl = slides[idx], max = t.scrollWidth - t.clientWidth;
+    const left = Math.max(0, Math.min(max, sl.offsetLeft - (t.clientWidth - sl.offsetWidth) / 2));
+    const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    t.style.scrollSnapType = 'none';
+    try { t.scrollTo({left, behavior: smooth ? 'smooth' : 'auto'}); } catch (err) { t.scrollLeft = left; }
+    clearTimeout(timer);
+    timer = setTimeout(() => { if (Math.abs(t.scrollLeft - left) > 2) t.scrollLeft = left; t.style.scrollSnapType = ''; update(); }, smooth ? 650 : 50);
+    count.textContent = `${idx + 1} / ${slides.length}`; btns[0].disabled = idx === 0; btns[1].disabled = idx === slides.length - 1;
+  };
   let raf; t.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); });
   t.addEventListener('keydown', ev => { if (ev.key === 'ArrowRight') { ev.preventDefault(); go(1); } if (ev.key === 'ArrowLeft') { ev.preventDefault(); go(-1); } });
   btns.forEach(b => b.addEventListener('click', () => go(Number(b.dataset.gal))));
