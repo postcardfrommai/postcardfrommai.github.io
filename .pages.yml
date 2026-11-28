@@ -104,6 +104,26 @@ content:
       - { name: snack, label: Snack of choice, type: string }
       - { name: body, label: What I thought, type: text }
 
+  - name: music
+    label: Music
+    type: collection
+    path: content/music
+    format: yaml-frontmatter
+    view:
+      primary: title
+      fields: [title, artist, kind, date]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: "Song, album or playlist", type: string, required: true }
+      - { name: artist, label: Artist, type: string }
+      - { name: kind, label: Type, type: select, required: true, options: { values: [song, album, playlist] } }
+      - { name: date, label: Date posted, type: date, required: true }
+      - { name: rating, label: Stars (1–5), type: number, options: { min: 1, max: 5 } }
+      - { name: bestFor, label: Best for, type: string, list: true, description: "e.g. rainy mornings, studying, long drives" }
+      - { name: listen, label: Listen link, type: string, pattern: { regex: "^https://", message: "Paste a full link starting with https:// (Spotify, YouTube, Anghami…)" }, description: "Optional link so people can listen" }
+      - { name: photo, label: Your own photo (optional), type: image, description: "e.g. your headphones or a record. Avoid album covers: they belong to the artist." }
+      - { name: body, label: Why I love it, type: text }
+
   - name: photos
     label: Photos
     type: collection
@@ -122,22 +142,3 @@ content:
       - { name: title, label: Title, type: string }
       - { name: tags, label: Tags, type: string, list: true, description: "e.g. sky, food, little things" }
       - { name: body, label: A line about it, type: text }
-
-  - name: days
-    label: Days
-    type: collection
-    path: content/days
-    format: yaml-frontmatter
-    view:
-      primary: title
-      fields: [title, date, mood]
-      default: { sort: date, order: desc }
-    fields:
-      - { name: title, label: Title, type: string, required: true }
-      - { name: date, label: Date, type: date, required: true }
-      - { name: mood, label: Mood, type: string }
-      - { name: reading, label: Reading, type: string }
-      - { name: onRepeat, label: On repeat, type: string }
-      - { name: ate, label: Ate, type: string }
-      - { name: photos, label: Photos, type: image, options: { multiple: true } }
-      - { name: body, label: The day, type: text, description: "Leave an empty line between paragraphs" }

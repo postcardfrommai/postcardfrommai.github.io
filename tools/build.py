@@ -24,8 +24,8 @@ FONT = ROOT / "tools" / "LiberationSerif-Italic.ttf"
 MARK = "© Postcards from Mai"
 MAX_SIDE = 1600
 
-TYPES = {"books": "book", "coffee": "coffee", "watched": "watched", "photos": "photo", "days": "day"}
-BODY = {"book": "review", "coffee": "note", "watched": "review", "photo": "note", "day": "text"}
+TYPES = {"books": "book", "coffee": "coffee", "watched": "watched", "music": "music", "photos": "photo"}
+BODY = {"book": "review", "coffee": "note", "watched": "review", "music": "why", "photo": "note"}
 IMAGE_FIELDS = ("photo", "cover", "poster", "photos")
 SAFE = re.compile(r"^media/[A-Za-z0-9._-]+\.(jpe?g|png|webp)$", re.I)
 

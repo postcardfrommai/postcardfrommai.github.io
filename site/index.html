@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Postcards from Mai</title>
-<meta name="description" content="A little online journal: books, coffee shops, films and series, photos and small days. A postcard a day keeps the burnout away.">
+<meta name="description" content="A little online journal: books, coffee shops, films and series, music and photos. A postcard a day keeps the burnout away.">
 <meta name="theme-color" content="#FFFAE8">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Postcards from Mai">
 <meta property="og:title" content="Postcards from Mai">
-<meta property="og:description" content="Books, coffee & small days. A postcard a day keeps the burnout away.">
+<meta property="og:description" content="Books, coffee, films & music. A postcard a day keeps the burnout away.">
 <meta property="og:url" content="https://postcardfrommai.github.io/">
 <meta property="og:image" content="https://postcardfrommai.github.io/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -115,7 +115,14 @@ nav.menu a[aria-current]{text-decoration:underline;text-decoration-thickness:2px
 .ticket .main{flex:1;padding:20px 22px;min-width:0}
 .ticket .stub{flex:0 0 86px;border-left:2px dashed var(--choc);background:var(--peri2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .ticket .score{font:700 40px/1 Fraunces,serif}
-.daycard{display:flex;flex-direction:column;justify-content:space-between;gap:16px;background:var(--lav);padding:24px;min-height:240px}
+.tape{display:block;background:var(--lav);border:1.5px solid var(--choc);border-radius:16px;padding:14px 14px 12px;box-shadow:4px 4px 0 var(--choc)}
+.tape-label{background:var(--cream);border:1.5px solid var(--choc);border-radius:8px;padding:12px 14px}
+.reels{display:flex;justify-content:center;gap:clamp(40px,22%,72px);margin:14px 0 4px;position:relative}
+.reels::before{content:"";position:absolute;top:10px;bottom:10px;left:50%;width:clamp(48px,26%,84px);transform:translateX(-50%);border:1.5px solid var(--choc);border-radius:6px;background:rgba(75,42,30,.12)}
+.reels span{position:relative;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--choc);background:radial-gradient(circle,var(--choc) 0 5px,var(--cream) 6px)}
+.tape .hand{font-size:22px;line-height:1.15;text-align:center;margin-top:6px}
+.bigtape{max-width:640px;margin:0 auto;padding:22px 22px 18px;box-shadow:6px 6px 0 var(--choc);transform:rotate(-1deg)}
+.bigtape .reels span{width:84px;height:84px}.bigtape .reels{gap:clamp(60px,26%,140px);margin:22px 0 10px}
 .tilt-l{transform:rotate(-1deg)}.tilt-r{transform:rotate(.9deg)}
 @media(prefers-reduced-motion:no-preference){.grid>a{transition:transform .2s}.grid>a:hover{transform:translateY(-3px) rotate(0)}}
 /* photos */
@@ -149,8 +156,8 @@ nav.menu a[aria-current]{text-decoration:underline;text-decoration-thickness:2px
 .cols{display:flex;flex-wrap:wrap;gap:40px;padding-top:48px;align-items:flex-start}
 .cols>*{flex:1 1 300px}.cols>.wide{flex:2 1 440px}
 .prose p{margin:0 0 14px;font-size:18px;line-height:1.75;white-space:pre-line}
-.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.5px;background:var(--choc);border:1.5px solid var(--choc);border-radius:16px;overflow:hidden;margin:32px 0}
-.strip div{background:var(--cream);padding:14px 18px}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;background:var(--cream);border:1.5px solid var(--choc);border-radius:16px;overflow:hidden;margin:32px 0}
+.strip div{background:var(--cream);padding:14px 18px;box-shadow:0 0 0 .75px var(--choc)}
 .strip small{display:block;margin-bottom:2px}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin-top:24px}
 .two .pic{aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--peri);border:1.5px solid var(--choc)}
@@ -216,6 +223,12 @@ footer.bottom small{display:block;max-width:420px;font-size:14px;line-height:1.5
 <path d="M32 44h46M32 54h52M32 64h40M32 74h48M32 84h30" stroke-width="1.6"/>
 <circle cx="80" cy="84" r="6"/><path d="M80 73v3M80 92v3M69 84h3M88 84h3M72.5 76.5l2 2M85.5 89.5l2 2M87.5 76.5l-2 2M74.5 89.5l-2 2" stroke-width="1.4"/></g></symbol>
 
+<symbol id="d-cassette" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-6 60 60)">
+<rect x="12" y="28" width="96" height="64" rx="8"/><rect x="22" y="36" width="76" height="30" rx="4"/>
+<circle cx="42" cy="51" r="8"/><circle cx="78" cy="51" r="8"/><path d="M50 51h20" stroke-width="1.6"/>
+<path d="M28 92l8-14h48l8 14"/><circle cx="46" cy="85" r="2"/><circle cx="74" cy="85" r="2"/>
+<path d="M26 42h22" stroke-width="1.4"/></g>
+<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M96 14v16a5 5 0 1 1-3-4.5M96 14l10 3"/></g></symbol>
 <symbol id="d-sprig" viewBox="0 0 80 160"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 <path d="M22 156C30 120 38 80 60 8"/>
 <path d="M30 124c-14-2-22-14-22-14c13-5 22 4 22 14zM30 124c-14-2-22-14-22-14"/>
@@ -279,7 +292,7 @@ footer.bottom small{display:block;max-width:420px;font-size:14px;line-height:1.5
 <header class="top"><div class="in">
 <a class="logo" href="#home"><svg class="doodle" aria-hidden="true"><use href="#d-cup"/></svg>Postcards from Mai</a>
 <nav class="menu" aria-label="Sections">
-<a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#photos">Photos</a><a href="#days">Days</a><a href="#about">About</a>
+<a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#music">Music</a><a href="#photos">Photos</a><a href="#about">About</a>
 </nav>
 </div></header>
 <main id="view" aria-live="polite"><p class="muted" style="padding:96px 18px;text-align:center">Opening the notebook…</p></main>
@@ -290,7 +303,7 @@ footer.bottom small{display:block;max-width:420px;font-size:14px;line-height:1.5
 <small>A public little notebook. All words and photos © Mai. Please ask before using them.</small>
 </div>
 <div class="follow"><div class="label">Follow along</div><p>New postcards every weekend,<br><b>Friday &amp; Saturday</b>.</p><p class="soon">Instagram: <span class="hand" style="font-size:22px">coming soon</span></p></div>
-<nav aria-label="Footer"><a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#photos">Photos</a><a href="#days">Days</a><a href="#about">About</a></nav>
+<nav aria-label="Footer"><a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#music">Music</a><a href="#photos">Photos</a><a href="#about">About</a></nav>
 <svg class="doodle" aria-hidden="true" style="width:120px;height:120px"><use href="#d-croissant"/></svg>
 </div></footer>
 <script>
@@ -325,16 +338,17 @@ const coverEl = (e, extra = '') => `<div class="cover" style="--tone:${tone(e.ti
 const bookCard = e => `<a class="bookcard sticker" href="${link(e)}">${coverEl(e)}<div><div class="label">Book · ${esc(day(e.finished || e.date))}</div><div class="card-title">${esc(e.title)}</div><div class="muted" style="font-size:15px">${esc(e.author)}</div><div style="margin-top:6px">${stars(e.rating)}</div></div></a>`;
 const coffeeCard = (e, i = 0) => `<a class="postcard ${i % 2 ? 'tilt-r' : 'tilt-l'}" href="${link(e)}"><div class="front">${pic(e.photo, e.title)}<div class="stamp"><div>${esc(e.rating)}<small>/ 10</small></div></div><div class="greet">Greetings from ${esc(e.title)}</div></div><div style="padding:12px 4px 2px"><div class="label">Coffee · ${esc(day(e.date))}</div><p>${esc(short(e.note, 110))}</p></div></a>`;
 const ticketCard = (e, i = 0) => `<a class="ticket ${i % 2 ? 'tilt-l' : 'tilt-r'}" href="${link(e)}"><div class="main"><div class="label">Admit one · ${esc(e.kind === 'series' ? 'Series' : 'Film')}</div><div class="card-title">${esc(e.title)}</div><div style="font-size:15px">Watched ${esc(day(e.date))}${e.where ? ' · ' + esc(e.where) : ''}</div></div><div class="stub"><div class="score">${clamp(e.rating, 5)}</div><div class="label" style="font-size:10px">/ 5</div></div></a>`;
-const dayCard = e => `<a class="daycard sticker" href="${link(e)}"><div><div class="label">Day · ${esc(wk(e.date))}</div><div class="card-title it">${esc(e.title)}</div><p style="margin:0;font-size:16px">${esc(short(e.text, 140))}</p></div>${e.mood ? `<div class="hand" style="font-size:23px">mood: ${esc(e.mood)}</div>` : ''}</a>`;
 const frame = e => `<a class="frame" href="${link(e)}"><div class="pic">${pic(e.photo, e.caption || e.title || 'Photo')}</div><div class="meta"><span>${esc(day(e.date))}</span><span>${esc(e.time)}</span></div><div class="hand">${esc(e.caption)}</div></a>`;
-const card = (e, i) => ({book: bookCard, coffee: coffeeCard, watched: ticketCard, day: dayCard, photo: frame}[e.type] || (() => ''))(e, i);
+const KIND = {song: 'Song', album: 'Album', playlist: 'Playlist'};
+const musicCard = (e, i = 0) => `<a class="tape ${i % 2 ? 'tilt-r' : 'tilt-l'}" href="${link(e)}"><div class="tape-label"><div class="label">${esc(KIND[e.kind] || 'Music')} · ${esc(day(e.date))}</div><div class="card-title">${esc(e.title)}</div><div class="muted" style="font-size:15px">${esc(e.artist)}</div></div><div class="reels" aria-hidden="true"><span></span><span></span></div>${(e.bestFor || []).length ? `<div class="hand">best for ${esc((e.bestFor || []).slice(0, 2).join(' & '))}</div>` : (e.rating ? `<div style="text-align:center">${stars(e.rating)}</div>` : '')}</a>`;
+const card = (e, i) => ({book: bookCard, coffee: coffeeCard, watched: ticketCard, music: musicCard, photo: frame}[e.type] || (() => ''))(e, i);
 
 const SECTIONS = [
   ['books', 'Books', 'd-books', 'book', 'what I read, with stars', ['book', 'books']],
   ['coffee', 'Coffee', 'd-cup', 'coffee', 'cafés, sent as postcards', ['postcard', 'postcards']],
   ['watched', 'Watched', 'd-ticket', 'watched', 'films & series, kept as tickets', ['ticket', 'tickets']],
-  ['photos', 'Photos', 'd-camera', 'photo', 'little things I stopped for', ['photo', 'photos']],
-  ['days', 'Days', 'd-notebook', 'day', 'notes from ordinary days', ['day', 'days']]
+  ['music', 'Music', 'd-cassette', 'music', 'songs on repeat & recs', ['tape', 'tapes']],
+  ['photos', 'Photos', 'd-camera', 'photo', 'little things I stopped for', ['photo', 'photos']]
 ];
 const nextCard = (n = 1) => `<div class="next" style="--span:${Math.max(1, 3 - n)}">${dd('d-polaroid')}<div class="hand" style="font-size:27px;line-height:1.1">the next postcard lands this weekend</div><p class="muted" style="margin:6px 0 0;font-size:15px">New posts every Friday &amp; Saturday</p></div>`;
 const countLine = (type, words) => { const n = of(type).length; return n ? `${n} ${n === 1 ? words[0] : words[1]}` : 'coming soon'; };
@@ -348,10 +362,10 @@ function home() {
     ? `<a class="feature sticker" href="${link(top)}">${coverEl(top)}<div><div class="label">Book · Finished ${esc(day(top.finished || top.date))}</div><div class="display" style="font-size:clamp(34px,5vw,46px);line-height:1;margin:10px 0 12px">${esc(top.title)}</div><div style="font-size:22px">${stars(top.rating)}</div><p style="margin:14px 0 0">${esc(short(top.review, 220))}</p></div></a>`
     : '';
   const rest = feature ? latest.slice(1, 10) : latest.slice(0, 9);
-  const words = '<span>a postcard a day keeps the burnout away</span><span>' + dd('d-sparkle') + '</span><span>books</span><span>' + dd('d-sparkle') + '</span><span>coffee</span><span>' + dd('d-sparkle') + '</span><span>films &amp; series</span><span>' + dd('d-sparkle') + '</span><span>photos</span><span>' + dd('d-sparkle') + '</span><span>small days</span><span>' + dd('d-sparkle') + '</span>';
+  const words = '<span>a postcard a day keeps the burnout away</span><span>' + dd('d-sparkle') + '</span><span>books</span><span>' + dd('d-sparkle') + '</span><span>coffee</span><span>' + dd('d-sparkle') + '</span><span>films &amp; series</span><span>' + dd('d-sparkle') + '</span><span>music</span><span>' + dd('d-sparkle') + '</span><span>photos</span><span>' + dd('d-sparkle') + '</span>';
   const aboutLine = short(String(about.text || '').split(/\n\s*\n/)[0], 170);
   return band('paper', `<div class="hero">
-      <div class="hero-text"><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp; <span class="it">small days.</span></h1><p class="lead">What I’m reading, where I sat, what I watched, and the small things in between.</p></div>
+      <div class="hero-text"><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp; <span class="it">small days.</span></h1><p class="lead">What I’m reading, sipping, watching and listening to, and the small things in between.</p></div>
       <div class="hero-btns"><div class="btns"><a class="btn" href="#latest">Read the latest →</a><a class="btn soft" href="#about">Hello, I’m Mai</a></div><p class="when">${dd('d-sparkle', '', 'width:16px;height:16px;flex:none')}New postcards every weekend: Friday &amp; Saturday</p></div>
       <div class="scene-wrap"><svg class="scene doodle" viewBox="0 0 560 470" role="img" aria-label="A sketch of a café table with a book, a coffee, a croissant, a ticket and a polaroid"><use href="#d-scene"/></svg></div>
     </div>`)
@@ -374,7 +388,7 @@ function section(t) {
     books: ['d-books', 'what I’ve been reading', 'The <span class="it">bookshelf</span>', 'book', 'No books yet.', 'The first review is coming soon.', ['book', 'books']],
     coffee: ['d-cup', 'wish you were here', 'Coffee <span class="it">postcards</span>', 'coffee', 'No postcards yet.', 'The first café is coming soon.', ['postcard', 'postcards']],
     watched: ['d-ticket', 'kept the ticket', 'The <span class="it">ticket box</span>', 'watched', 'No tickets yet.', 'Films and series will show up here.', ['ticket', 'tickets']],
-    days: ['d-notebook', 'nothing big, just days', 'Small <span class="it">days</span>', 'day', 'No days written yet.', 'The first little note is coming soon.', ['day', 'days']]
+    music: ['d-cassette', 'on repeat lately', 'The <span class="it">mixtape</span>', 'music', 'No tapes yet.', 'Songs and albums I love will show up here.', ['tape', 'tapes']]
   }[t];
   const list = of(meta[3]);
   return pageHead(meta[0], meta[1], meta[2], list.length ? countLine(meta[3], meta[6]) : '')
@@ -433,15 +447,15 @@ function photoPage(e) {
   <div style="flex:2 1 260px"><div class="label">${esc(full(e.date))}${e.time ? ' · ' + esc(e.time) : ''}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 14px">${esc(e.title || e.caption)}</div>${e.note ? `<p class="muted">${esc(e.note)}</p>` : ''}<div>${tags(e.tags)}</div></div></div>`);
 }
 
-function dayPage(e) {
-  const list = of('day'); const i = list.findIndex(x => x.id === e.id);
-  const newer = list[i - 1], older = list[i + 1];
-  const facts = [['Mood', e.mood], ['Reading', e.reading], ['On repeat', e.onRepeat], ['Ate', e.ate]].filter(f => f[1]);
-  return band('paper', `${back('days', 'All days')}<div style="text-align:center;max-width:760px;margin:0 auto"><div class="label">${esc(full(e.date))}</div><h1 class="it" style="margin-top:12px">${esc(e.title)}</h1></div>`)
-  + band('', `<article style="max-width:700px;margin:0 auto">${facts.length ? `<div class="strip" style="margin-top:0">${facts.map(f => `<div><small class="label">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>` : ''}
-  <div class="prose">${paras(e.text)}</div>
-  ${(e.photos || []).length ? `<div class="two">${e.photos.map(p => `<div class="pic">${pic(p, e.title)}</div>`).join('')}</div>` : ''}
-  <div class="pager">${older ? `<a href="${link(older)}">← ${esc(wk(older.date))}</a>` : '<span></span>'}${newer ? `<a href="${link(newer)}">${esc(wk(newer.date))} →</a>` : '<span></span>'}</div></article>`);
+function musicPage(e) {
+  const facts = [['Type', KIND[e.kind] || 'Music'], ['Posted', day(e.date)], ['Artist', e.artist]].filter(f => f[1]);
+  const listen = typeof e.listen === 'string' && /^https:\/\/[^\s"<>]+$/.test(e.listen) ? e.listen : '';
+  return band('paper', `${back('music', 'The mixtape')}<div style="text-align:center;padding:4px 0 30px"><div class="hand" style="font-size:28px">on repeat lately</div><h1>${esc(e.title)}</h1>${e.artist ? `<div style="font-size:20px">${esc(e.artist)}</div>` : ''}</div>
+  <div class="tape bigtape"><div class="tape-label" style="text-align:center"><div class="label">${esc(KIND[e.kind] || 'Music')} · Side A</div><div class="display" style="font-size:clamp(28px,4vw,38px);line-height:1.05;margin:6px 0 2px">${esc(e.title)}</div><div class="hand" style="font-size:24px">${esc(e.artist)}</div></div><div class="reels" aria-hidden="true"><span></span><span></span></div>${e.rating ? `<div style="text-align:center;font-size:22px">${stars(e.rating)}</div>` : ''}</div>
+  ${listen ? `<div style="text-align:center;margin-top:34px"><a class="btn" href="${esc(listen)}" target="_blank" rel="noopener noreferrer">Listen to it →</a></div>` : ''}`)
+  + band('', `<div class="cols" style="padding-top:0"><div class="wide prose"><h2>Why I love it</h2>${paras(e.why)}</div>
+  <div style="display:flex;flex-direction:column;gap:16px">${(e.bestFor || []).length ? `<div class="box"><div class="label" style="margin-bottom:10px">Best for</div>${tags(e.bestFor)}</div>` : ''}<div class="strip" style="margin:0">${facts.map(f => `<div><small class="label">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div></div></div>
+  ${(e.photos || []).length || src(e.photo) ? `<div class="two">${[e.photo, ...(e.photos || [])].filter(src).map(p => `<div class="pic">${pic(p, e.title)}</div>`).join('')}</div>` : ''}`);
 }
 
 function aboutPage() {
@@ -456,14 +470,14 @@ function aboutPage() {
 }
 
 /* ---------- routing ---------- */
-const navKey = {book: 'books', coffee: 'coffee', watched: 'watched', photo: 'photos', day: 'days'};
+const navKey = {book: 'books', coffee: 'coffee', watched: 'watched', music: 'music', photo: 'photos'};
 function route() {
   const h = location.hash.slice(1);
   let html, active = '';
   if (h.startsWith('e-')) {
     const e = all.find(x => x.id === h.slice(2));
-    if (e) { active = navKey[e.type]; html = ({book: bookPage, coffee: coffeePage, watched: watchedPage, photo: photoPage, day: dayPage}[e.type] || home)(e); }
-  } else if (['books', 'coffee', 'watched', 'days'].includes(h)) { active = h; html = section(h); }
+    if (e) { active = navKey[e.type]; html = ({book: bookPage, coffee: coffeePage, watched: watchedPage, music: musicPage, photo: photoPage}[e.type] || home)(e); }
+  } else if (['books', 'coffee', 'watched', 'music'].includes(h)) { active = h; html = section(h); }
   else if (h === 'photos') { active = h; html = photos(); }
   else if (h === 'about') { active = h; html = aboutPage(); }
   view.innerHTML = html || home();
@@ -473,7 +487,7 @@ function route() {
 function track() {
   const h = location.hash.slice(1) || 'home';
   const e = h.startsWith('e-') ? all.find(x => x.id === h.slice(2)) : null;
-  const names = {home: 'Home', latest: 'Home', books: 'Books', coffee: 'Coffee', watched: 'Watched', photos: 'Photos', days: 'Days', about: 'About'};
+  const names = {home: 'Home', latest: 'Home', books: 'Books', coffee: 'Coffee', watched: 'Watched', photos: 'Photos', music: 'Music', about: 'About'};
   const title = e ? (e.title || e.caption || 'Entry') : (names[h] || 'Home');
   document.title = title === 'Home' ? 'Postcards from Mai' : title + ' · Postcards from Mai';
   let tries = 0;
