@@ -89,7 +89,9 @@ def main():
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir()
-    shutil.copy(ROOT / "site" / "index.html", OUT / "index.html")
+    for f in (ROOT / "site").iterdir():  # the page(s), favicon, share image
+        if f.is_file() and f.suffix in (".html", ".svg", ".png", ".ico", ".webmanifest") and not f.name.endswith(".svg.html"):
+            shutil.copy(f, OUT / f.name)
     (OUT / ".nojekyll").write_text("")
 
     entries, used, ids = [], set(), set()
