@@ -3,7 +3,7 @@ title: "Sunrise on the Reaping "
 author: Suzanne Collins
 date: 2026-11-28
 rating: 5
-cover: media/mx09fwdj-1if9q6vj.jpeg
+cover: media/mx09h70k-m1po3m6i.jpeg
 tagline: "A whirlpool of emotions "
 genre: "Dystopian, science fiction "
 started: 2026-10-04
@@ -12,6 +12,6 @@ pages: 382
 format: Hardcover
 quote: "Thinking things are inevitable. Not believing change is possible "
 photos:
-  - media/mx09g50a-2z66244c.jpeg
+  - media/mx09he22-mvquipz5.jpeg
 ---
 A book the addresses the reality of this world
