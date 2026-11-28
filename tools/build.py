@@ -1,11 +1,11 @@
-"""Builds the public website for Postcards from Mai.
+"""Builds the public website for Postcard from Mai.
 
 Runs automatically on GitHub after every post (see .github/workflows/publish.yml):
   1. Reads every entry in content/<type>/*.md
   2. Writes them all into _site/entries.json for the page to show
   3. Copies each photo into _site/media after removing its hidden data
      (GPS location, phone model, time), resizing it for the web,
-     and adding the "© Postcards from Mai" watermark.
+     and adding the "© Postcard from Mai" watermark.
 """
 import datetime as dt
 import html
@@ -22,7 +22,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "_site"
 FONT = ROOT / "tools" / "LiberationSerif-Italic.ttf"
-MARK = "© Postcards from Mai"
+MARK = "© Postcard from Mai"
 MAX_SIDE = 1600
 SITE = "https://postcardfrommai.github.io"
 VARIANTS = (480, 960)  # smaller copies for phones, named <name>-480.jpg and <name>-960.jpg
@@ -209,7 +209,7 @@ def describe(e):
         "music": f"{e.get('title', '')}" + (f" by {e['artist']}" if e.get("artist") else ""),
         "photo": e.get("title") or e.get("caption") or "A photo",
     }.get(t, e.get("title", ""))
-    out = f"{lead}. {text}" if text else f"{lead}. From Postcards from Mai."
+    out = f"{lead}. {text}" if text else f"{lead}. From Postcard from Mai."
     return out if len(out) <= 160 else out[:157].rsplit(" ", 1)[0] + "…"
 
 
@@ -219,7 +219,7 @@ def page_title(e):
         name = f"{name} by {e['artist']}"
     if e["type"] == "book" and e.get("author"):
         name = f"{name} by {e['author']}"
-    return f"{name} · Postcards from Mai"
+    return f"{name} · Postcard from Mai"
 
 
 def prerender(e):

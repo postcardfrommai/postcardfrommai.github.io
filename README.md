@@ -1,4 +1,4 @@
-# Postcards from Mai
+# Postcard from Mai
 
 A little online journal: books, coffee shops, movies & series, photos and small days.
 
@@ -11,7 +11,7 @@ A little online journal: books, coffee shops, movies & series, photos and small 
 4. The site updates by itself within about a minute.
 
 ## What happens to photos
-Every photo is processed automatically before it appears on the site: its hidden data (GPS location, phone model, time) is removed, it is resized for the web, and a "© Postcards from Mai" watermark is added. Keep **Location tags** off in your phone's camera settings, because the original upload is also kept in this repository.
+Every photo is processed automatically before it appears on the site: its hidden data (GPS location, phone model, time) is removed, it is resized for the web, and a "© Postcard from Mai" watermark is added. Keep **Location tags** off in your phone's camera settings, because the original upload is also kept in this repository.
 
 ## Files
 - `content/` — your entries, one file each
