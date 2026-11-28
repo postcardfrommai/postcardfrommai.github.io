@@ -132,6 +132,23 @@ nav.menu a[aria-current]{text-decoration:underline;text-decoration-thickness:2px
 .potd{display:flex;flex-wrap:wrap;gap:40px;align-items:center}
 .potd .polaroid{flex:0 1 340px}
 .potd>div:last-child{flex:1 1 280px}
+.frame .pic{position:relative}
+.more{position:absolute;right:8px;top:8px;padding:2px 10px;border-radius:999px;background:var(--cream);border:1.5px solid var(--choc);color:var(--choc);font:700 13px Fraunces,serif}
+.polaroid.stack{isolation:isolate}
+.polaroid.stack::before,.polaroid.stack::after{content:"";position:absolute;inset:0;background:var(--cream);border:1.5px solid var(--choc);z-index:-1}
+.polaroid.stack::before{transform:rotate(5deg) translate(10px,4px)}.polaroid.stack::after{transform:rotate(-4deg) translate(-8px,6px)}
+.gallery{margin-top:10px}
+.gtrack{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 6px 26px;scrollbar-width:none;outline-offset:6px}
+.gtrack::-webkit-scrollbar{display:none}
+.slide{flex:0 0 auto;margin:0;scroll-snap-align:center;background:var(--cream);border:1.5px solid var(--choc);box-shadow:5px 5px 0 var(--choc);padding:12px 12px 6px;transform:rotate(-1deg)}
+.slide.r{transform:rotate(1deg)}
+.slide img{height:min(64vh,540px);width:auto;max-width:min(82vw,900px);object-fit:cover;display:block}
+.slide figcaption{font-size:24px;padding:8px 2px 2px;min-height:36px;max-width:min(82vw,900px)}
+.gnav{display:flex;align-items:center;justify-content:center;gap:18px}
+.gbtn{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--choc);background:var(--cream);color:var(--choc);font:600 20px Fraunces,serif;cursor:pointer;box-shadow:3px 3px 0 var(--choc)}
+.gbtn:disabled{opacity:.35;cursor:default}
+.gcount{font-size:24px;min-width:64px;text-align:center}
+@media(max-width:600px){.polaroid.stack::before{transform:rotate(2.5deg) translate(3px,3px)}.polaroid.stack::after{transform:rotate(-2deg) translate(-3px,4px)}.slide{transform:none}.slide img{height:auto;max-height:62vh;width:calc(100vw - 72px);max-width:none}}
 .film{background:#2E1A12;border-radius:8px;padding:12px 14px;margin-top:22px;border:1.5px solid var(--choc)}
 .holes{height:10px;background:repeating-linear-gradient(90deg,#FFF6D5 0 14px,transparent 14px 28px);opacity:.9;border-radius:2px;margin:2px 0 12px}
 .holes.b{margin:12px 0 2px}
@@ -338,7 +355,8 @@ const coverEl = (e, extra = '') => `<div class="cover" style="--tone:${tone(e.ti
 const bookCard = e => `<a class="bookcard sticker" href="${link(e)}">${coverEl(e)}<div><div class="label">Book · ${esc(day(e.finished || e.date))}</div><div class="card-title">${esc(e.title)}</div><div class="muted" style="font-size:15px">${esc(e.author)}</div><div style="margin-top:6px">${stars(e.rating)}</div></div></a>`;
 const coffeeCard = (e, i = 0) => `<a class="postcard ${i % 2 ? 'tilt-r' : 'tilt-l'}" href="${link(e)}"><div class="front">${pic(e.photo, e.title)}<div class="stamp"><div>${esc(e.rating)}<small>/ 10</small></div></div><div class="greet">Greetings from ${esc(e.title)}</div></div><div style="padding:12px 4px 2px"><div class="label">Coffee · ${esc(day(e.date))}</div><p>${esc(short(e.note, 110))}</p></div></a>`;
 const ticketCard = (e, i = 0) => `<a class="ticket ${i % 2 ? 'tilt-l' : 'tilt-r'}" href="${link(e)}"><div class="main"><div class="label">Admit one · ${esc(e.kind === 'series' ? 'Series' : 'Film')}</div><div class="card-title">${esc(e.title)}</div><div style="font-size:15px">Watched ${esc(day(e.date))}${e.where ? ' · ' + esc(e.where) : ''}</div></div><div class="stub"><div class="score">${clamp(e.rating, 5)}</div><div class="label" style="font-size:10px">/ 5</div></div></a>`;
-const frame = e => `<a class="frame" href="${link(e)}"><div class="pic">${pic(e.photo, e.caption || e.title || 'Photo')}</div><div class="meta"><span>${esc(day(e.date))}</span><span>${esc(e.time)}</span></div><div class="hand">${esc(e.caption)}</div></a>`;
+const shotsOf = e => [e.photo, ...(Array.isArray(e.photos) ? e.photos : [])].filter(src);
+const frame = e => `<a class="frame" href="${link(e)}"><div class="pic">${pic(e.photo, e.caption || e.title || 'Photo')}${shotsOf(e).length > 1 ? `<span class="more">+${shotsOf(e).length - 1}</span>` : ''}</div><div class="meta"><span>${esc(day(e.date))}</span><span>${esc(e.time)}</span></div><div class="hand">${esc(e.caption)}</div></a>`;
 const KIND = {song: 'Song', album: 'Album', playlist: 'Playlist'};
 const musicCard = (e, i = 0) => `<a class="tape ${i % 2 ? 'tilt-r' : 'tilt-l'}" href="${link(e)}"><div class="tape-label"><div class="label">${esc(KIND[e.kind] || 'Music')} · ${esc(day(e.date))}</div><div class="card-title">${esc(e.title)}</div><div class="muted" style="font-size:15px">${esc(e.artist)}</div></div><div class="reels" aria-hidden="true"><span></span><span></span></div>${(e.bestFor || []).length ? `<div class="hand">best for ${esc((e.bestFor || []).slice(0, 2).join(' & '))}</div>` : (e.rating ? `<div style="text-align:center">${stars(e.rating)}</div>` : '')}</a>`;
 const card = (e, i) => ({book: bookCard, coffee: coffeeCard, watched: ticketCard, music: musicCard, photo: frame}[e.type] || (() => ''))(e, i);
@@ -375,7 +393,7 @@ function home() {
       dd('d-sprig', 'side', 'left:calc(50% - 680px);top:60px;width:80px;height:160px') + dd('d-swirl', 'side', 'right:calc(50% - 660px);bottom:50px;width:64px;height:64px'))
   + `<section class="band" id="latest">${dd('d-popcorn', 'side', 'right:calc(50% - 690px);top:80px;width:96px;height:96px')}<div class="in"><div class="head"><div><div class="label">Fresh from the notebook</div><h2 style="margin:8px 0 0">The latest <span class="it">postcards</span></h2></div></div>
       ${latest.length ? feature + `<div class="grid">${rest.map(card).join('')}${rest.length < 3 ? nextCard(rest.length) : ''}</div>` : empty('d-polaroid', 'The first postcard is on its way.', 'Books, cafés, films and small days will show up here.')}</div></section>`
-  + (potd ? band('b-choc', `<a class="potd" href="${link(potd)}"><div class="polaroid"><div class="pic">${pic(potd.photo, potd.caption || 'Photo of the day')}</div><div class="hand">${esc(potd.caption)}</div></div><div><div class="label" style="color:#F9D98B">Photo of the day · ${esc(day(potd.date))}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 16px">${esc(potd.title || potd.caption)}</div><span class="btn soft">See the camera roll →</span></div></a>`) : '')
+  + (potd ? band('b-choc', `<a class="potd" href="${link(potd)}"><div class="polaroid${shotsOf(potd).length > 1 ? ' stack' : ''}"><div class="pic">${pic(potd.photo, potd.caption || 'Photo of the day')}</div><div class="hand">${esc(potd.caption)}</div></div><div><div class="label" style="color:#F9D98B">Photo of the day · ${esc(day(potd.date))}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 16px">${esc(potd.title || potd.caption)}</div><span class="btn soft">See the camera roll →</span></div></a>`) : '')
   + band('b-lav', `<div style="display:flex;flex-wrap:wrap;gap:24px 40px;align-items:center;justify-content:space-between"><div style="flex:1 1 420px"><div class="hand" style="font-size:28px">hello,</div><h2 style="margin:0 0 10px">${esc(about.heading || 'I’m Mai')}</h2><p style="margin:0;font-size:18px;max-width:52ch">${esc(aboutLine)}</p></div><a class="btn" href="#about">More about me →</a></div>`);
 }
 
@@ -403,7 +421,7 @@ function photos() {
   const allTags = [...new Set(list.flatMap(e => Array.isArray(e.tags) ? e.tags : []))];
   const shown = rollTag ? list.filter(e => (e.tags || []).includes(rollTag)) : list;
   return head + band('', `<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;padding-bottom:56px">
-    <a class="polaroid" href="${link(p)}" style="flex:3 1 400px"><div class="pic">${pic(p.photo, p.caption || 'Photo of the day')}</div><div class="hand">${esc(p.caption)}</div></a>
+    <a class="polaroid${shotsOf(p).length > 1 ? ' stack' : ''}" href="${link(p)}" style="flex:3 1 400px"><div class="pic">${pic(p.photo, p.caption || 'Photo of the day')}</div><div class="hand">${esc(p.caption)}</div></a>
     <div style="flex:2 1 260px"><div class="label">Photo of the day · ${esc(day(p.date))}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 14px">${esc(p.title || p.caption)}</div>${p.note ? `<p class="muted">${esc(p.note)}</p>` : ''}<div>${tags(p.tags)}</div></div></div>
   <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding-top:28px;border-top:1.5px solid var(--choc)"><h2 style="margin:0">The roll</h2>
   <div class="btns">${['', ...allTags].map(t => `<button class="chip${rollTag === t ? ' on' : ''}" data-tag="${esc(t)}">${t ? esc(t) : 'All'}</button>`).join('')}</div></div>
@@ -443,8 +461,16 @@ function watchedPage(e) {
 }
 
 function photoPage(e) {
-  return band('paper', `${back('photos', 'The camera roll')}<div style="display:flex;flex-wrap:wrap;gap:44px;align-items:center;padding-top:10px"><div class="polaroid" style="flex:3 1 420px"><div class="pic" style="aspect-ratio:auto">${pic(e.photo, e.caption || e.title || 'Photo')}</div><div class="hand">${esc(e.caption)}</div></div>
-  <div style="flex:2 1 260px"><div class="label">${esc(full(e.date))}${e.time ? ' · ' + esc(e.time) : ''}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 14px">${esc(e.title || e.caption)}</div>${e.note ? `<p class="muted">${esc(e.note)}</p>` : ''}<div>${tags(e.tags)}</div></div></div>`);
+  const shots = shotsOf(e);
+  const alt = e.caption || e.title || 'Photo';
+  const info = `<div class="label">${esc(full(e.date))}${e.time ? ' · ' + esc(e.time) : ''}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 14px">${esc(e.title || e.caption)}</div>${e.note ? `<p class="muted">${esc(e.note)}</p>` : ''}<div>${tags(e.tags)}</div>`;
+  if (shots.length < 2) {
+    return band('paper', `${back('photos', 'The camera roll')}<div style="display:flex;flex-wrap:wrap;gap:44px;align-items:center;padding-top:10px"><div class="polaroid" style="flex:3 1 420px"><div class="pic" style="aspect-ratio:auto">${pic(e.photo, alt)}</div><div class="hand">${esc(e.caption)}</div></div><div style="flex:2 1 260px">${info}</div></div>`);
+  }
+  return band('paper', `${back('photos', 'The camera roll')}
+  <div class="gallery"><div class="gtrack" tabindex="0" aria-label="Photos, swipe or use the arrow keys">${shots.map((p, i) => `<figure class="slide${i % 2 ? ' r' : ''}"><img src="${src(p)}" alt="${esc(alt)} (${i + 1} of ${shots.length})" loading="${i < 2 ? 'eager' : 'lazy'}">${i === 0 && e.caption ? `<figcaption class="hand">${esc(e.caption)}</figcaption>` : `<figcaption class="hand" aria-hidden="true">&nbsp;</figcaption>`}</figure>`).join('')}</div>
+  <div class="gnav"><button class="gbtn" data-gal="-1" aria-label="Previous photo">←</button><span class="hand gcount" aria-live="polite">1 / ${shots.length}</span><button class="gbtn" data-gal="1" aria-label="Next photo">→</button></div></div>
+  <div style="max-width:680px;margin:28px auto 0;text-align:center">${info}</div>`);
 }
 
 function musicPage(e) {
@@ -481,6 +507,7 @@ function route() {
   else if (h === 'photos') { active = h; html = photos(); }
   else if (h === 'about') { active = h; html = aboutPage(); }
   view.innerHTML = html || home();
+  setupGallery();
   if (h === 'latest') document.getElementById('latest')?.scrollIntoView();
   document.querySelectorAll('nav.menu a').forEach(a => a.toggleAttribute('aria-current', a.getAttribute('href') === '#' + active));
 }
@@ -497,6 +524,18 @@ function track() {
     else if (tries++ < 20) setTimeout(send, 500);
   };
   send();
+}
+function setupGallery() {
+  const t = view.querySelector('.gtrack'); if (!t) return;
+  const slides = [...t.children], count = view.querySelector('.gcount'), btns = view.querySelectorAll('.gbtn');
+  const current = () => { if (t.scrollLeft < 4) return 0; if (t.scrollLeft + t.clientWidth >= t.scrollWidth - 4) return slides.length - 1; const r = t.getBoundingClientRect(), mid = r.left + r.width / 2; let best = 0, d = Infinity; slides.forEach((s, i) => { const b = s.getBoundingClientRect(), x = Math.abs(b.left + b.width / 2 - mid); if (x < d) { d = x; best = i; } }); return best; };
+  const update = () => { const i = current(); count.textContent = `${i + 1} / ${slides.length}`; btns[0].disabled = i === 0; btns[1].disabled = i === slides.length - 1; };
+  const go = dir => { const i = Math.max(0, Math.min(slides.length - 1, current() + dir)); slides[i].scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest', inline: 'center'}); };
+  let raf; t.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); });
+  t.addEventListener('keydown', ev => { if (ev.key === 'ArrowRight') { ev.preventDefault(); go(1); } if (ev.key === 'ArrowLeft') { ev.preventDefault(); go(-1); } });
+  btns.forEach(b => b.addEventListener('click', () => go(Number(b.dataset.gal))));
+  t.querySelectorAll('img').forEach(img => img.addEventListener('load', update));
+  update();
 }
 view.addEventListener('click', ev => {
   const b = ev.target.closest('button[data-tag]');

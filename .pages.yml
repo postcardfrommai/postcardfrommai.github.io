@@ -135,7 +135,8 @@ content:
       fields: [caption, date, time]
       default: { sort: date, order: desc }
     fields:
-      - { name: photo, label: Photo, type: image, required: true }
+      - { name: photo, label: Main photo, type: image, required: true, description: "Shown first and on the camera roll" }
+      - { name: photos, label: More photos from the same moment, type: image, options: { multiple: { max: 10 } }, description: "Optional, up to 10. People can swipe through them." }
       - { name: caption, label: Handwritten caption, type: string, required: true, description: "e.g. the sky at 5:42pm" }
       - { name: date, label: Date, type: date, required: true }
       - { name: time, label: Time, type: string, pattern: { regex: "^([01][0-9]|2[0-3]):[0-5][0-9]$", message: "Use HH:MM, e.g. 17:42" } }
