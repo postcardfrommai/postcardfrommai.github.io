@@ -14,4 +14,4 @@ quote: "Thinking things are inevitable. Not believing change is possible "
 photos:
   - media/mx09he22-mvquipz5.jpeg
 ---
-A book the addresses the reality of this world
+Reality check through literature
