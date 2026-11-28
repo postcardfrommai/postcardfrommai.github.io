@@ -226,7 +226,8 @@ blockquote.quote{margin:0;padding:44px 32px;background:var(--lav);border:1.5px s
 footer.bottom .in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px 40px;align-items:flex-start}
 footer.bottom nav{display:grid;grid-template-columns:repeat(2,auto);gap:4px 36px}
 footer.bottom nav a{padding:6px 0;font-size:13px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
-footer.bottom .follow p{margin:8px 0 0;font-size:16px;line-height:1.45}footer.bottom .follow .soon{display:inline-block;margin-top:12px;padding:4px 14px;border:1.5px solid var(--choc);border-radius:999px;background:var(--butter);font-size:14px}
+footer.bottom .follow p{margin:8px 0 0;font-size:16px;line-height:1.45}footer.bottom .follow .socials{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+footer.bottom .follow .soon{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:4px 14px;border:1.5px solid var(--choc);border-radius:999px;background:var(--butter);font-size:14px}
 footer.bottom small{display:block;max-width:420px;font-size:14px;line-height:1.55}
 @media(max-width:820px){.hero{grid-template-columns:1fr;grid-template-areas:"text" "scene" "btns";row-gap:8px}.hero .lead{margin-bottom:6px}.scene-wrap{margin:0 -6px}}
 @media(max-width:600px){nav.menu{flex-wrap:nowrap;overflow-x:auto;width:100%;gap:0 18px;scrollbar-width:none;margin-bottom:-4px}nav.menu::-webkit-scrollbar{display:none}nav.menu a{flex:none}.mcard{padding:18px 10px 16px}.mcard svg{width:72px;height:72px}.bigcard,.polaroid,.tilt-l,.tilt-r{transform:none}.bigcard .backside{padding:18px 4px 4px}.feature .cover{flex-basis:140px}.ribbon .track{font-size:17px}}
@@ -362,7 +363,7 @@ footer.bottom small{display:block;max-width:420px;font-size:14px;line-height:1.5
 <p class="hand" style="font-size:26px;margin:10px 0 14px">a postcard a day keeps the burnout away</p>
 <small>A public little notebook. All words and photos © Mai. Please ask before using them.</small>
 </div>
-<div class="follow"><div class="label">Follow along</div><p>New postcards every weekend,<br><b>Friday &amp; Saturday</b>.</p><p class="soon">Instagram: <span class="hand" style="font-size:22px">coming soon</span></p></div>
+<div class="follow"><div class="label">Follow along</div><p>New postcards every weekend,<br><b>Friday &amp; Saturday</b>.</p><div class="socials"><a class="soon ig" href="https://www.instagram.com/postcardfrommai/" target="_blank" rel="me noopener"><svg aria-hidden="true" viewBox="0 0 24 24" style="width:18px;height:18px;flex:none"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>@postcardfrommai</a><span class="soon">TikTok: <span class="hand" style="font-size:22px">coming soon</span></span></div></div>
 <nav aria-label="Footer"><a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#music">Music</a><a href="#photos">Photos</a><a href="#about">About</a></nav>
 <svg class="doodle" aria-hidden="true" style="width:120px;height:120px"><use href="#d-croissant"/></svg>
 </div></footer>
@@ -440,7 +441,7 @@ function home() {
   const aboutLine = short(String(about.text || '').split(/\n\s*\n/)[0], 170);
   return band('paper', `<div class="hero">
       <div class="hero-text"><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp; <span class="it">small days.</span></h1><p class="lead">What I’m reading, sipping, watching and listening to, and the small things in between.</p></div>
-      <div class="hero-btns"><div class="btns"><a class="btn" href="#latest">Read the latest →</a><a class="btn soft" href="#about">Hello, I’m Mai</a></div><p class="when">${dd('d-sparkle', '', 'width:16px;height:16px;flex:none')}New postcards every weekend: Friday &amp; Saturday</p></div>
+      <div class="hero-btns"><div class="btns"><a class="btn" href="#latest">Read the latest →</a><a class="btn soft" href="#about">Hello, I’m Mai</a></div><p class="when">${dd('d-sparkle', '', 'width:16px;height:16px;flex:none')}New postcards every weekend: Friday &amp; Saturday · <a href="https://www.instagram.com/postcardfrommai/" target="_blank" rel="me noopener" style="text-decoration:underline;text-underline-offset:3px">@postcardfrommai</a></p></div>
       <div class="scene-wrap"><svg class="scene doodle" viewBox="0 0 560 470" role="img" aria-label="A sketch of a café table with a book, a coffee, a croissant, a ticket and a polaroid"><use href="#d-scene"/></svg></div>
     </div>`)
   + `<div class="ribbon" aria-hidden="true"><div class="track">${words}${words}</div></div>`
@@ -565,7 +566,7 @@ function aboutPage() {
     ${src(a.photo) ? `<div class="polaroid" style="flex:0 1 320px"><div class="pic" style="aspect-ratio:4/5">${pic(a.photo, 'A photo from Mai')}</div><div class="hand">${esc(a.caption || 'hi, it’s me')}</div>${a.credit ? `<div style="position:absolute;left:18px;right:18px;bottom:-30px;font-size:13px" class="muted">${esc(a.credit)}</div>` : ''}</div>` : dd('d-sprig', '', 'width:110px;height:220px;flex:none')}
     <div style="flex:1 1 360px"><div class="hand" style="font-size:30px">hello,</div><h1>${esc(a.heading || 'I’m Mai')}</h1><div class="prose">${paras(a.text)}</div></div></div>`)
   + (now.length ? band('b-lav', `<h2>Currently</h2><div class="strip" style="margin:0">${now.map(f => `<div><small class="label">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>`) : '')
-  + band('b-lav', `<div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between"><div><div class="label">Follow along</div><h2 style="margin:8px 0 0">New postcards every <span class="it">Friday &amp; Saturday.</span></h2></div><div class="tag" style="background:var(--butter);font-size:15px;padding:8px 18px">Instagram: coming soon</div></div>`)
+  + band('b-lav', `<div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between"><div><div class="label">Follow along</div><h2 style="margin:8px 0 0">New postcards every <span class="it">Friday &amp; Saturday.</span></h2></div><a class="btn" href="https://www.instagram.com/postcardfrommai/" target="_blank" rel="me noopener"><svg aria-hidden="true" viewBox="0 0 24 24" style="width:18px;height:18px;flex:none"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>Follow @postcardfrommai</a></div>`)
   + band('b-peri', `<div class="label">What you’ll find here</div><h2 style="margin:8px 0 0">Pull up a chair.</h2><div class="menu-cards">${SECTIONS.map(s => `<a class="mcard" href="#${s[0]}"><div class="label">${s[1]}</div>${dd(s[2])}<div class="hand" style="font-size:22px;line-height:1.1">${s[4]}</div></a>`).join('')}</div>`);
 }
 
