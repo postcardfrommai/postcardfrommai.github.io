@@ -60,9 +60,11 @@ nav.menu a[aria-current]{text-decoration:underline;text-decoration-thickness:2px
 .tag{display:inline-block;padding:6px 14px;border-radius:999px;border:1.5px solid var(--choc);background:var(--lav);font-size:14px;margin:0 6px 8px 0}
 .stars{letter-spacing:3px}.off{opacity:.25}
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);grid-template-areas:"text scene" "btns scene";column-gap:clamp(24px,4vw,56px);row-gap:0;align-items:end}
+.hero-text{grid-area:text}.hero-btns{grid-area:btns;align-self:start}.scene-wrap{grid-area:scene;align-self:center}
+.when{display:flex;align-items:center;gap:8px;margin:18px 0 0;font:600 21px/1.2 Caveat,cursive}
 .hero .hand{font-size:clamp(24px,2.6vw,30px)}
-.lead{font-size:clamp(18px,1.8vw,21px);margin:0 0 26px;max-width:30ch}
+.lead{font-size:clamp(18px,1.8vw,21px);margin:0 0 26px;max-width:34ch}
 .scene{width:100%;height:auto;--scene-bg:var(--butter)}
 /* ribbon */
 .ribbon{background:var(--lav);border-block:1.5px solid var(--choc);transform:rotate(-1.6deg);margin:-14px -2vw 0;overflow:hidden;position:relative;z-index:2}
@@ -86,6 +88,9 @@ nav.menu a[aria-current]{text-decoration:underline;text-decoration-thickness:2px
 .pagehead h1{margin:0}
 /* grids & cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:30px;align-items:start}
+.next{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;min-height:280px;padding:28px 22px;border:2px dashed var(--choc);border-radius:20px;background:rgba(255,251,236,.6)}
+.next svg{width:84px;height:84px}
+@media(min-width:1040px){.grid .next{grid-column:span var(--span)}}
 .empty{padding:52px 24px;text-align:center;border:2px dashed var(--choc);border-radius:24px;background:var(--cream)}
 .empty .hand{font-size:30px}
 .empty svg{width:90px;height:90px;margin:0 auto 6px}
@@ -162,9 +167,10 @@ blockquote.quote{margin:0;padding:44px 32px;background:var(--lav);border:1.5px s
 footer.bottom .in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px 40px;align-items:flex-start}
 footer.bottom nav{display:grid;grid-template-columns:repeat(2,auto);gap:4px 36px}
 footer.bottom nav a{padding:6px 0;font-size:13px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
+footer.bottom .follow p{margin:8px 0 0;font-size:16px;line-height:1.45}footer.bottom .follow .soon{display:inline-block;margin-top:12px;padding:4px 14px;border:1.5px solid var(--choc);border-radius:999px;background:var(--butter);font-size:14px}
 footer.bottom small{display:block;max-width:420px;font-size:14px;line-height:1.55}
-@media(max-width:820px){.hero{grid-template-columns:1fr}.hero .scene-wrap{order:2}.hero .btns{order:3}}
-@media(max-width:600px){.mcard{padding:18px 10px 16px}.mcard svg{width:72px;height:72px}.bigcard,.polaroid,.tilt-l,.tilt-r{transform:none}.bigcard .backside{padding:18px 4px 4px}.feature .cover{flex-basis:140px}.ribbon .track{font-size:17px}}
+@media(max-width:820px){.hero{grid-template-columns:1fr;grid-template-areas:"text" "scene" "btns";row-gap:8px}.hero .lead{margin-bottom:6px}.scene-wrap{margin:0 -6px}}
+@media(max-width:600px){nav.menu{flex-wrap:nowrap;overflow-x:auto;width:100%;gap:0 18px;scrollbar-width:none;margin-bottom:-4px}nav.menu::-webkit-scrollbar{display:none}nav.menu a{flex:none}.mcard{padding:18px 10px 16px}.mcard svg{width:72px;height:72px}.bigcard,.polaroid,.tilt-l,.tilt-r{transform:none}.bigcard .backside{padding:18px 4px 4px}.feature .cover{flex-basis:140px}.ribbon .track{font-size:17px}}
 </style>
 <!-- View counts (GoatCounter): privacy-friendly, no cookies, no personal data -->
 <script>window.goatcounter = {no_onload: true};</script>
@@ -281,8 +287,9 @@ footer.bottom small{display:block;max-width:420px;font-size:14px;line-height:1.5
 <div style="max-width:440px">
 <a class="logo" href="#home" style="font-size:32px"><svg class="doodle" aria-hidden="true"><use href="#d-cup"/></svg>Postcards from Mai</a>
 <p class="hand" style="font-size:26px;margin:10px 0 14px">a postcard a day keeps the burnout away</p>
-<small>A public little notebook, updated whenever something is worth writing down. All words and photos © Mai. Please ask before using them.</small>
+<small>A public little notebook. All words and photos © Mai. Please ask before using them.</small>
 </div>
+<div class="follow"><div class="label">Follow along</div><p>New postcards every weekend,<br><b>Friday &amp; Saturday</b>.</p><p class="soon">Instagram: <span class="hand" style="font-size:22px">coming soon</span></p></div>
 <nav aria-label="Footer"><a href="#books">Books</a><a href="#coffee">Coffee</a><a href="#watched">Watched</a><a href="#photos">Photos</a><a href="#days">Days</a><a href="#about">About</a></nav>
 <svg class="doodle" aria-hidden="true" style="width:120px;height:120px"><use href="#d-croissant"/></svg>
 </div></footer>
@@ -329,6 +336,7 @@ const SECTIONS = [
   ['photos', 'Photos', 'd-camera', 'photo', 'little things I stopped for', ['photo', 'photos']],
   ['days', 'Days', 'd-notebook', 'day', 'notes from ordinary days', ['day', 'days']]
 ];
+const nextCard = (n = 1) => `<div class="next" style="--span:${Math.max(1, 3 - n)}">${dd('d-polaroid')}<div class="hand" style="font-size:27px;line-height:1.1">the next postcard lands this weekend</div><p class="muted" style="margin:6px 0 0;font-size:15px">New posts every Friday &amp; Saturday</p></div>`;
 const countLine = (type, words) => { const n = of(type).length; return n ? `${n} ${n === 1 ? words[0] : words[1]}` : 'coming soon'; };
 
 /* ---------- home ---------- */
@@ -343,8 +351,8 @@ function home() {
   const words = '<span>a postcard a day keeps the burnout away</span><span>' + dd('d-sparkle') + '</span><span>books</span><span>' + dd('d-sparkle') + '</span><span>coffee</span><span>' + dd('d-sparkle') + '</span><span>films &amp; series</span><span>' + dd('d-sparkle') + '</span><span>photos</span><span>' + dd('d-sparkle') + '</span><span>small days</span><span>' + dd('d-sparkle') + '</span>';
   const aboutLine = short(String(about.text || '').split(/\n\s*\n/)[0], 170);
   return band('paper', `<div class="hero">
-      <div><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp; <span class="it">small days.</span></h1><p class="lead">A postcard a day keeps the burnout away.</p>
-      <div class="btns"><a class="btn" href="#latest">Read the latest →</a><a class="btn soft" href="#about">Hello, I’m Mai</a></div></div>
+      <div class="hero-text"><div class="hand">little postcards from ordinary days</div><h1>Books, coffee &amp; <span class="it">small days.</span></h1><p class="lead">What I’m reading, where I sat, what I watched, and the small things in between.</p></div>
+      <div class="hero-btns"><div class="btns"><a class="btn" href="#latest">Read the latest →</a><a class="btn soft" href="#about">Hello, I’m Mai</a></div><p class="when">${dd('d-sparkle', '', 'width:16px;height:16px;flex:none')}New postcards every weekend: Friday &amp; Saturday</p></div>
       <div class="scene-wrap"><svg class="scene doodle" viewBox="0 0 560 470" role="img" aria-label="A sketch of a café table with a book, a coffee, a croissant, a ticket and a polaroid"><use href="#d-scene"/></svg></div>
     </div>`)
   + `<div class="ribbon" aria-hidden="true"><div class="track">${words}${words}</div></div>`
@@ -352,7 +360,7 @@ function home() {
       <div class="menu-cards">${SECTIONS.map(s => `<a class="mcard" href="#${s[0]}"><div class="label">${s[1]}</div>${dd(s[2])}<div class="hand" style="font-size:22px;line-height:1.1">${s[4]}</div><div class="count">${countLine(s[3], s[5])}</div></a>`).join('')}</div>`,
       dd('d-sprig', 'side', 'left:calc(50% - 680px);top:60px;width:80px;height:160px') + dd('d-swirl', 'side', 'right:calc(50% - 660px);bottom:50px;width:64px;height:64px'))
   + `<section class="band" id="latest">${dd('d-popcorn', 'side', 'right:calc(50% - 690px);top:80px;width:96px;height:96px')}<div class="in"><div class="head"><div><div class="label">Fresh from the notebook</div><h2 style="margin:8px 0 0">The latest <span class="it">postcards</span></h2></div></div>
-      ${latest.length ? feature + `<div class="grid">${rest.map(card).join('')}</div>` : empty('d-polaroid', 'The first postcard is on its way.', 'Books, cafés, films and small days will show up here.')}</div></section>`
+      ${latest.length ? feature + `<div class="grid">${rest.map(card).join('')}${rest.length < 3 ? nextCard(rest.length) : ''}</div>` : empty('d-polaroid', 'The first postcard is on its way.', 'Books, cafés, films and small days will show up here.')}</div></section>`
   + (potd ? band('b-choc', `<a class="potd" href="${link(potd)}"><div class="polaroid"><div class="pic">${pic(potd.photo, potd.caption || 'Photo of the day')}</div><div class="hand">${esc(potd.caption)}</div></div><div><div class="label" style="color:#F9D98B">Photo of the day · ${esc(day(potd.date))}</div><div class="display" style="font-size:clamp(34px,5vw,48px);line-height:1;margin:10px 0 16px">${esc(potd.title || potd.caption)}</div><span class="btn soft">See the camera roll →</span></div></a>`) : '')
   + band('b-lav', `<div style="display:flex;flex-wrap:wrap;gap:24px 40px;align-items:center;justify-content:space-between"><div style="flex:1 1 420px"><div class="hand" style="font-size:28px">hello,</div><h2 style="margin:0 0 10px">${esc(about.heading || 'I’m Mai')}</h2><p style="margin:0;font-size:18px;max-width:52ch">${esc(aboutLine)}</p></div><a class="btn" href="#about">More about me →</a></div>`);
 }
@@ -443,6 +451,7 @@ function aboutPage() {
     ${src(a.photo) ? `<div class="polaroid" style="flex:0 1 320px"><div class="pic" style="aspect-ratio:4/5">${pic(a.photo, 'A photo from Mai')}</div><div class="hand">${esc(a.caption || 'hi, it’s me')}</div>${a.credit ? `<div style="position:absolute;left:18px;right:18px;bottom:-30px;font-size:13px" class="muted">${esc(a.credit)}</div>` : ''}</div>` : dd('d-sprig', '', 'width:110px;height:220px;flex:none')}
     <div style="flex:1 1 360px"><div class="hand" style="font-size:30px">hello,</div><h1>${esc(a.heading || 'I’m Mai')}</h1><div class="prose">${paras(a.text)}</div></div></div>`)
   + (now.length ? band('b-lav', `<h2>Currently</h2><div class="strip" style="margin:0">${now.map(f => `<div><small class="label">${esc(f[0])}</small><span>${esc(f[1])}</span></div>`).join('')}</div>`) : '')
+  + band('b-lav', `<div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between"><div><div class="label">Follow along</div><h2 style="margin:8px 0 0">New postcards every <span class="it">Friday &amp; Saturday.</span></h2></div><div class="tag" style="background:var(--butter);font-size:15px;padding:8px 18px">Instagram: coming soon</div></div>`)
   + band('b-peri', `<div class="label">What you’ll find here</div><h2 style="margin:8px 0 0">Pull up a chair.</h2><div class="menu-cards">${SECTIONS.map(s => `<a class="mcard" href="#${s[0]}"><div class="label">${s[1]}</div>${dd(s[2])}<div class="hand" style="font-size:22px;line-height:1.1">${s[4]}</div></a>`).join('')}</div>`);
 }
 
